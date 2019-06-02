@@ -1,0 +1,9 @@
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\bin\Release\GraphicCronAnalyzer.exe
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\bin\Release\GraphicCronAnalyzer.pdb
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\obj\x86\Release\GraphicCronAnalyzer.Form1.resources
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\obj\x86\Release\GraphicCronAnalyzer.Properties.Resources.resources
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\obj\x86\Release\GraphicCronAnalyzer.exe
+C:\Users\03500309\documents\visual studio 2010\Projects\GraphicCronAnalyzer\GraphicCronAnalyzer\obj\x86\Release\GraphicCronAnalyzer.pdb

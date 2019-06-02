@@ -1,0 +1,275 @@
+# @(#)08	1.15.1.3  src/bos/usr/sbin/cron/root, cmdcntl, bos510 2/11/94 17:19:47
+#
+# COMPONENT_NAME: (CMDCNTL) commands needed for basic system needs
+#
+# FUNCTIONS: 
+#
+# ORIGINS: 27
+#
+# (C) COPYRIGHT International Business Machines Corp. 1989,1994
+# All Rights Reserved
+# Licensed Materials - Property of IBM
+#
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#
+#########################
+####AIX OS###############
+#########################
+#0 3 * * * /usr/sbin/skulker
+#45 2 * * 0 /usr/lib/spell/compress
+#45 23 * * * ulimit 5000; /usr/lib/smdemon.cleanu > /dev/null
+0 11 * * * /usr/bin/errclear -d S,O 30
+0 12 * * * /usr/bin/errclear -d H 90
+#0 04 * * * /usr/bin/errclear 1
+0 15 * * *  /usr/lib/ras/dumpcheck >/dev/null 2>&1
+#########################
+####EQUIPO SISTEMAS######
+#########################
+0 0 * * * /usr/bin/nmon -fTNSW -s 900 -c 96 -k power,hdisk0,hdisk1,hdisk2,hdisk3,hdisk4 -m /MNGHIST/NMON/NMON_PARMENIDES
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/ps.sh 2>/dev/null 1>>/MNGHIST/LOGS_PARMENIDES/MNG/EXPL/TMP/RDTO/ps.$(date +\%d\%m\%y)
+* * * * * /swmango/scripts/SISTEMA/check_runcobol_perms.sh
+0,10,20,30,40,50 7-18 * * 1-5 /swmango/scripts/SISTEMA/vigila_batches.sh 1>/dev/null
+00 05 * * * /usr/bin/crontab -l 1>/MNG1/DESA/crontab_parmenides 2>/dev/null
+* * * * * /swmango/scripts/SISTEMA/check_ldapcl.sh 1>>/temp_bck/ldap_client.log
+0 0 * * 1-5 /swmango/scripts/SISTEMA/limpieza_logs_P 1>/dev/null 2>/dev/null
+0 4 * * 1-5 /swmango/scripts/SISTEMA/limpieza_dirs_parmenides.sh 1>/dev/null 2>&1
+0 4 * * * /swmango/scripts/SISTEMA/tarsvarios2 1>/dev/null 2>/dev/null
+0 2 * * * /swmango/scripts/SISTEMA/confsym_P.sh 1>/dev/null
+0 2 * * 1 /swmango/scripts/SISTEMA/saveconf.sh 1>/dev/null
+01 1 * * * /swmango/scripts/SISTEMA/vmstat_P.sh 1>/dev/null 2>/dev/null
+01 00 * * * /swmango/scripts/SISTEMA/iostat_P.sh 1>/dev/null
+0 3 * * 1-5 /swmango/scripts/SISTEMA/pasascripts_P.sh
+0 4 * * * /swmango/scripts/SISTEMA/pasausuarios_P.sh 1>/dev/null 2>/dev/null
+#* 1-19 * * * /swmango/scripts/SISTEMA/baldufa_P.sh 1>/dev/null 2>/dev/null
+#* 23-0 * * * /swmango/scripts/SISTEMA/baldufa_P.sh 1>/dev/null 2>/dev/null
+0 19 * * * /swmango/scripts/SISTEMA/comprimeLOGS_DWH_P  1>/dev/null 2>/dev/null
+#0 7-19 * * * /swmango/scripts/SISTEMA/megasMNG1_P.sh
+#0 7-19 * * * /swmango/scripts/SISTEMA/megasMNGPRE_P.sh
+#30 2 * * 1 /swmango/scripts/SISTEMA/saveprof_P.sh
+#10 5 * * 1-5 /swmango/scripts/SISTEMA/dirssist_P.sh
+0,5,10,15,20,25,30,35,40,45,50,55 1-20 * * * /swmango/scripts/SISTEMA/check_uv.sh 1>/dev/null 2>&1
+# NMON Monitor Consumos AIX
+#monitorizacion con ps
+0,15,30,45 * * * * /swmango/scripts/SISTEMA/ps_monitor.sh > /dev/null 2>&1
+#Configuraciones cabinas de discos
+00 07 * * * /swmango/scripts/SISTEMA/STORAGE/configuracio.sh 1>/dev/null 2>&1
+#Otros
+01 00 * * * /swmango/scripts/SISTEMA/DR/DR_get_files.sh > /dev/null 2>&1
+# Usuaris conectats no repetits - 17.05.2011 - Solicita MPC
+0 0-23 * * * /swmango/scripts/SISTEMA/usuaris_conectats.sh 1>/dev/null 2>&1
+# Limpia el nohup que se deja en /swmango/scripts/SISTEMA
+00 12 * * * cat /dev/null > /swmango/scripts/SISTEMA/nohup.out 1>/dev/null 2>&1
+#* * * * * /swmango/scripts/SISTEMA/check_uvrpc.sh 1>/dev/null 2>&1
+00 06 * * * chown desa:gdesa /MNGHIST/EXPL/FICH/EQD/*
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/pasaORDERdeswfinet.sh 1>/dev/null 2>$1
+# Calcula porcentaje de runqueue por encima de numero de CPUs
+00 4 * * * /swmango/scripts/SISTEMA/calculaRUNQUEUE.sh 1>/dev/null 2>&1
+00 12,18 * * * /swmango/scripts/SISTEMA/check_back_rest.sh 2>&1
+00 11,17 * * * /swmango/scripts/SISTEMA/check_ftp_nexica.sh 2>&1
+04,19,34,49 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_ftp.ksh
+# audit rotacion archivo
+00 19 * * * /audit/restart_audit.sh
+00 11 * * 3-5 /swmango/scripts/SISTEMA/traspaso_crecimiento_fs_DWH.sh 1>/dev/null 2>&1
+00 17 * * 1-2 /swmango/scripts/SISTEMA/traspaso_crecimiento_fs_DWH.sh 1>/dev/null 2>&1
+# Refresco especial de MMGPRE
+
+### 00 20 * * 6 /swmango/scripts/SISTEMA/refresco_MNGPRE.sh 1>/dev/null 2>&1
+# borrado de cores
+00 20 * * 5 find / -name core -atime 15 -print -exec rm {} \; 
+
+######################################
+####EQGENERAL##############################
+######################################
+# Ejecucion DIARIOCON escindido de DIARIO zenon
+0 23 * * 0-4 /swmango/scripts/EXPL/exe_DIARIOCON
+#10 3 * * 5-6 /swmango/scripts/EXPL/exe_DIARIOCON
+10 3 * * 6 /swmango/scripts/EXPL/exe_DIARIOCON
+
+######################################
+####EQG###############################
+######################################
+# Proceso de calculo de riesgos
+0 2 * * 2-6 /swmango/scripts/EXPL/exe_RIESGO
+# Proceso de cuadre diario DAP
+0 2 * * 2-6 /swmango/scripts/EXPL/exe_TIEN2340
+#Peticio Roger Guzman (884150)
+#2,5,8,11,14,17,20,23,26,29,32,35,38,41,44,47,50,53,56,59 * * * * /swmango/scripts/SISTEMA/pasaRAMPASmontcada.sh 1>/dev/null 2>&1
+
+#####################################
+####EQBASE###########################
+#####################################
+00,05,10,15,20,25,30,35,40,45,50,55 02-18 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0054 EQBASE 1>/dev/null 2>&1
+00,05,10,15,20,25,30,35,40,45,50,55 08-19 * * 1-4 /swmango/scripts/EXPL/exe_PROGCOB BASE0017 EQBASE 1>/dev/null 2>&1
+00,05,10,15,20,25,30,35,40,45,50,55 08-22 * * 5 /swmango/scripts/EXPL/exe_PROGCOB BASE0017 EQBASE 1>/dev/null 2>&1
+#* * * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB BASE0017MK EQBASE 1>/dev/null 2>&1
+30 23 * * 0,1,2,3,4 /swmango/scripts/DESA/MIGRACPY 1>/dev/null 2>&1 
+00,05,10,15,20,25,30,35,40,45,50,55 07-18 * * 1-5 /swmango/scripts/SISTEMA/EDI/traspasoEDI.sh 1>/dev/null 2>&1
+00,05,10,15,20,25,30,35,40,45,50,55 07-18 * * 1-5 /swmango/scripts/SISTEMA/EDI/traspasoEDITICKETS.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/EXPL/exe_PROGCOB PRCRON EQBASE 1> /tmp/colleja.tmp 2> /tmp/colleja.err
+15 11 30 05 * /MNG1/DESA/FUENTES/EQC/MOSSA/exe_DWH_EQJ_ZENONMK 1>/tmp/mossa.txt 2>&1
+
+######################################
+#############EQB######################
+######################################
+# 00,15,30,45 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5485 EQB 1>/dev/null 2>&1
+00 09-18 * * 1-4 ps -ef |grep rts64 |grep -v grep |grep "     1" > /tmp/salida_ps_rts64 ; cat /tmp/salida_ps_rts64  | mail -s "procesos rts64 parmenides" eqp.base@mango.com
+######################################
+####PASO FICHEROS ENTRE SISTEMAS######
+######################################
+55 23 * * 1-4 /swmango/scripts/SISTEMA/pasaDWHFICH003oracleinet.sh 1>/tmp/dwhfich003.log 2>/tmp/dwhfich003.err
+0 3 * * 6 /swmango/scripts/SISTEMA/pasaDWHFICH003oracleinet.sh 1>/tmp/dwhfich003.log 2>/tmp/dwhfich003.err
+59 23 * * 1-4 /swmango/scripts/SISTEMA/pasaPLANNINGprodorainet.sh 1>/dev/null 2>&1 
+05 03 * * 6 /swmango/scripts/SISTEMA/pasaPLANNINGprodorainet.sh 1>/dev/null 2>&1 
+00 05 * * 1-6  /swmango/scripts/SISTEMA/pasaFICH2003_prodorainet.sh 1>/dev/null 2>&1
+55 23 * * 1-4 /swmango/scripts/SISTEMA/pasaDWHFICH003tdvirtual.sh 1>/tmp/dwhfich003tdv.log 2>/tmp/dwhfich003tdv.err
+0 3 * * 6 /swmango/scripts/SISTEMA/pasaDWHFICH003tdvirtual.sh 1>/tmp/dwhfich003tdv.log 2>/tmp/dwhfich003tdv.err
+00 07 * * * /swmango/scripts/SISTEMA/pasaGENmangoiasdesa.sh 1>/dev/null 2>&1
+* 03-19 * * * /swmango/scripts/SISTEMA/cogeWFLOW-DESWFINET.sh 1>/dev/null 2>&1
+* 03-19 * * * /swmango/scripts/SISTEMA/pasaWFLOW-DESWFINET.sh 1>/dev/null 2>&1
+#0 5 * * 2-6 /swmango/scripts/SISTEMA/pasaDWHCOM.sh 1>/dev/null 2>&1
+* 00-18 * * 0,1,2,3,4,6 /swmango/scripts/SISTEMA/pasaTXTEFAC.sh 1>/dev/null 2>&1
+* 03-20 * * 5 /swmango/scripts/SISTEMA/pasaTXTEFAC.sh 1>/dev/null 2>&1
+* 00-18 * * 0,1,2,3,4,6 /swmango/scripts/SISTEMA/pasaFACTCLI.sh 1>/dev/null 2>&1
+* 03-20 * * 5 /swmango/scripts/SISTEMA/pasaFACTCLI.sh 1>/dev/null 2>&1
+00,05,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/pasaHTM-XML-workflow.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/pasaREL_FRAPACKwflow.sh >/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/pasaFAC-SHIPPINGRUS.sh  >/dev/null 2>&1
+00 * * * * /swmango/scripts/SISTEMA/pasaXLS-workflow.sh 1>/dev/null 2>&1
+13 * * * * /swmango/scripts/SISTEMA/cogeEYEFREIGHTxml.sh 1>/dev/null 2>&1
+#30 19 * * 1-5 /swmango/scripts/SISTEMA/pasaFICH1753.sh 1>/dev/null 2>&1
+# 03,13,23,33,43,53 * * * * /swmango/scripts/SISTEMA/pasaJEVASOonline.sh 1>/dev/null 2>/dev/null
+# 04,14,24,34,44,54 * * * * /swmango/scripts/SISTEMA/cogeJEVASOonline.sh 1>/dev/null 2>/dev/null
+00,15,30,45 * * * * /swmango/scripts/SISTEMA/pasaFIEGE.sh 1>/dev/null 2>/dev/null
+00,15,30,45 * * * * /swmango/scripts/SISTEMA/cogeFIEGE.sh 1>/dev/null 2>/dev/null
+
+######################################
+####PASO MENSAJES PLATAFORMA##########
+######################################
+0 3 * * 2-6 /swmango/scripts/SISTEMA/pasaItemFamily expl 1>>/tmp/pasaItemFamily.log.`date +\%d\%m\%y` 2>>/tmp/pasaItemFamily.err.`date +\%d\%m\%y`
+0 3 * * 1-5 /swmango/scripts/SISTEMA/pasaFICH060.sh 1>>/tmp/pasaFICH060.sh.log.`date +\%d\%m\%y` 2>>/tmp/pasaFICH060.sh.err.`date +\%d\%m\%y`
+00 02 * * 1 /usr/ibm/common/acsi/bin/collectbatch.sh > fsout.log 2>&1
+######################################
+####Pruebas equipos###################
+######################################
+#0,15,30,45 7-18 * * 1-5 /swmango/scripts/DESA/exe_PFSYPAR 1>/dev/null 2>/dev/null
+#00 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4361 B 1>/dev/null 2>/dev/null  >> traspasado a Zenon
+######################################
+######## BACKUP FUENTES ##############
+######################################
+00 16 * * 1-5 /swmango/scripts/SISTEMA/backupFUENTES.sh 1>/dev/null 2>&1
+####################################
+####### EQBG #######################
+####################################
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN4991 EQBG 1>/dev/null 2>&1
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN4992 EQBG 1>/dev/null 2>&1
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN4993 EQBG 1>/dev/null 2>&1
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN4994 EQBG 1>/dev/null 2>&1
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN4995 EQBG 1>/dev/null 2>&1
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN4996 EQBG 1>/dev/null 2>&1
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN4997 EQBG 1>/dev/null 2>&1
+#30 23 * * 0-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN5048 EQBG 1>/dev/null 2>&1
+#######################################
+####EQUIPO G3#########################
+######################################
+#00 04 * * 1-5 /swmango/scripts/EXPL/exe_TIEN4467_TIEN4587.sh 1>/dev/null 2>&1
+#00 * * * * /swmango/scripts/EXPL/exe_TIEN4497 1>/dev/null 2>&1
+#15 * * * * /swmango/scripts/EXPL/exe_TIEN4486 1>/dev/null 2>&1
+30 15 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4736 EQMOL
+30 09 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5068 EQMOL M 1>/dev/null 2>&1
+00 18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5068 EQMOL M 1>/dev/null 2>&1
+#00 00,02,04,06,08,10,12,14,16,18,20,22 * * 1-5  /swmango/scripts/EXPL/exe_PROGCOB TIEN5246 EQG3 1>/dev/null 2>&1
+#00,15,30,45 16 16 07 02 /swmango/scripts/EXPL/exe_PROGCOB TIEN1190J EQG3 O 1>/dev/null 2>&1
+# 00,15,30,45 * * * 2 /swmango/scripts/EXPL/exe_PROGCOB TI1190J2 EQG3 O 1>/dev/null 2>&1
+#* * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5582 EQG3 E 1>/dev/null 2>&1
+#0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5582 EQG3 R 1>/dev/null 2>&1
+0 0,2,4,6,8,10,12,14,16,18,20,22 * * * /swmango/scripts/SISTEMA/pasaDEVOSMANGOSHOP.sh 1>/dev/null 2>&1
+0 0,2,4,6,8,10,12,14,16,18,20,22 * * * /swmango/scripts/SISTEMA/cogeDEVOSMANGOSHOP.sh 1>/dev/null 2>&1
+
+#Sscript temporal de prueba para Santiago Nicolas
+# 00 16 09 07 * /swmango/scripts/SISTEMA/lanza_5246_5888.sh 1>/tmp/log_tien5246.txt 2>&1
+#######################################
+####EQUIPO EQH#########################
+######################################
+0,5,10,15,20,25,30,35,40,45,50,55 7-19 * * 1-5 /swmango/scripts/SISTEMA/cogeWF-PEDIDOS.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 7-19 * * 1-5 /swmango/scripts/SISTEMA/cogeWF-TARIFAS.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 7-19 * * 1-5 /swmango/scripts/SISTEMA/pasaWF-XML.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 7-19 * * 1-5 /swmango/scripts/SISTEMA/cogeWF-ALBARANES.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 7-19 * * 1-5 /swmango/scripts/SISTEMA/cogeWF-ALBARANES-FAB.sh 1>/dev/null 2>&1
+#######################################
+#######################################
+####BORRADO DE MAILS###################
+#######################################
+0 16 6,28 * * /usr/bin/echo > /var/spool/mail/bchcomer
+0 16 6,28 * * /usr/bin/echo > /var/spool/mail/bchfra
+0 16 6,28 * * /usr/bin/echo > /var/spool/mail/root
+00 23 * * 1-4 errpt | mail -s "ERRPT PARMENIDES" alertasaix@mango.com
+00 01 * * 6 errpt | mail -s "ERRPT PARMENIDES" alertasaix@mango.com
+33 13 * * 5 errpt | mail -s "ERRPT PARMENIDES" alertasaix@mango.com
+#######
+## Traspasos hacia la intranet que han pasado de ZENON a PARMENIDES
+#######
+55 7 * * 1-5 /swmango/scripts/SISTEMA/pasaDESBLOQUEOSprodorainet-ESP.sh
+00 07 * * * /swmango/scripts/SISTEMA/pasaUNIFORMESprodorainet2-ESP.sh
+00 08 * * 1-5 /swmango/scripts/SISTEMA/pasaPEXTRAprodorainet2-ESP.sh
+#########################################
+###############EBUSINESS################
+#########################################
+* * * * * /swmango/scripts/SISTEMA/cogePEDCHI.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/cogeTDVIRTUAL-OUTLETtsystems.sh 1>/dev/null 2>&1
+* * * * * /swmango/scripts/SISTEMA/cogeTDVIRTUALtsystems-PEDPAL.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/cogeTDVIRTUALtsystems.sh 1>/dev/null 2>&1
+* * * * * /swmango/scripts/SISTEMA/pasaPEDCHI.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/pasaTDVIRTUAL-OUTLETtsystems1.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/pasaTDVIRTUAL-OUTLETtsystems4.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/pasaTDVIRTUAL-OUTLETtsystems6.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/pasaTDVIRTUALtsystems1.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/pasaTDVIRTUALtsystems4.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/pasaTDVIRTUALtsystems6.sh 1>/dev/null 2>&1
+55 23 * * * /var/perf/pm/bin/pmcfg >/dev/null 2>&1      #Enable PM Data Collection
+###############TEMPORAL###########
+#23 11 * * * /swmango/scripts/EXPL/exe_TIEN4997W EQBG 1>/tmp/log_TIEN4997W 2>/tmp/log_err_TIEN4997W
+#### traspaso de archivos de /MNGCON/DWH/FICH a /DWH/FICH
+00 12 * * * /swmango/scripts/SISTEMA/moverMNGCONaDWH.sh 1>/dev/null 2>&1
+0 0 7 * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/04 -name \*.bz2 -mtime +60 -exec rm -f {} \;
+0 0 7 * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/08 -name \*.bz2 -mtime +120 -exec rm -f {} \;
+0 0 7 * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/12 -name \*.bz2 -mtime +120 -exec rm -f {} \;
+##### add nmon monitors
+0 0 * * * /usr/bin/nmon -s 720 -c 120 -fdKLMNPVY^ -I 10 -l 64 -w 8 -Z 5 -k power,hdisk0,hdisk1,hdisk2,hdisk3,hdisk4 -m /MNGHIST/NMON/NMON_PARMENIDES/NEW/24
+0 7,19 * * * /usr/bin/nmon -s 180 -c 240 -fdKLMNPVY^ -I 10 -l 64 -w 8 -Z 5 -k power,hdisk0,hdisk1,hdisk2,hdisk3,hdisk4 -m /MNGHIST/NMON/NMON_PARMENIDES/NEW/12
+0 6,14,22 * * * /usr/bin/nmon -s 120 -c 240 -fdKLMNPVY^ -I 10 -l 64 -w 8 -Z 5 -k power,hdisk0,hdisk1,hdisk2,hdisk3,hdisk4 -m /MNGHIST/NMON/NMON_PARMENIDES/NEW/08
+0 1,5,9,13,17,21 * * * /usr/bin/nmon -s 60 -c 240 -fdKLMNPVY^ -I 10 -l 64 -w 8 -Z 5 -k power,hdisk0,hdisk1,hdisk2,hdisk3,hdisk4 -m /MNGHIST/NMON/NMON_PARMENIDES/NEW/04
+##### cleanup and compress nmon collections on 7th day of month
+0 0 * * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/04 -name \*.nmon -mtime +07 -exec bzip2 {} \;
+0 0 * * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/08 -name \*.nmon -mtime +14 -exec bzip2 {} \;
+0 0 * * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/12 -name \*.nmon -mtime +21 -exec bzip2 {} \;
+0 0 7 * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW    -name \*.nmon -mtime +42 -exec bzip2 {} \;
+0 0 7 * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/04 -name \*.bz2 -mtime +60 -exec rm -f {} \;
+0 0 7 * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/08 -name \*.bz2 -mtime +120 -exec rm -f {} \;
+0 0 7 * * /usr/bin/find /MNGHIST/NMON/NMON_PARMENIDES/NEW/12 -name \*.bz2 -mtime +120 -exec rm -f {} \;
+
+
+######################################
+#### PROCESOS PARA EJECUTAR EN #######
+#### CONSULTAS MASIVAS (/MNGCON) #####
+#### exe_PROGCOBCMAS #################
+######################################
+
+######################################
+####EQG2##############################
+######################################
+00 01 * * * /swmango/scripts/EXPL/exe_TIEN3517_1 1>/dev/null 2>&1
+00 04 * * * /swmango/scripts/EXPL/COPIAR.sh 1>/dev/null 2>&1
+
+
+######################################
+#### PROCESOS PARA EJECUTAR EN #######
+#### PRUEBAS (/MNG1) #################
+#### exe_PROGCOB #####################
+######################################
+
+######################################
+####EQT###############################
+######################################
+0,10,20,30,40,50 * * * * /swmango/scripts/SISTEMA/pasaEYEFREIGHT.sh 1>/dev/null 2>&1
+

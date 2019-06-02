@@ -1,0 +1,632 @@
+#rme @(#)08        1.15.1.3  src/bos/usr/sbin/cron/root, cmdcntl, bos610 2/11/94 17:19:47
+# IBM_PROLOG_BGIN_TAG 
+# This is an automatically generated prolog. 
+#  
+# bos610 src/bos/usr/sbin/cron/root 1.15.1.3 
+#  
+# Licensed Materials - Property of IBM 
+#  
+# COPYRIGHT International Business Machines Corp. 1989,1994 
+# All Rights Reserved 
+#  
+# US Government Users Restricted Rights - Use, duplication or 
+# disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
+#  
+# IBM_PROLOG_END_TAG 
+#
+# COMPONENT_NAME: (CMDCNTL) commands needed for basic system needs
+#
+# FUNCTIONS: 
+#
+# ORIGINS: 27
+#
+# (C) COPYRIGHT International Business Machines Corp. 1989,1994
+# All Rights Reserved
+# Licensed Materials - Property of IBM
+#
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#
+0 11 * * * /usr/bin/errclear -d S,O 30
+0 12 * * * /usr/bin/errclear -d H 90
+# 0,5,10,15,20,25,30,35,40,45,50,55 * * * * /usr/sbin/dumpctrl -k >/dev/null 2>/dev/null
+# Movemos la programación 2 minutos en el tiempo
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * /usr/sbin/dumpctrl -k >/dev/null 2>/dev/null
+0 15 * * *  /usr/lib/ras/dumpcheck >/dev/null 2>&1
+
+########    Termina aquí la crontab de root instalada por el sistema  ########
+
+0 0 * * * /swmango/scripts/SISTEMA/PERFORMANCE/vmstat.sh 1>/dev/null 2>/dev/null
+0 0 * * * /swmango/scripts/SISTEMA/CHECKS/iostat.sh 1>/dev/null 2>/dev/null
+0 0 * * * /swmango/scripts/SISTEMA/CHECKS/iostat1sec.sh 1>/dev/null 2>/dev/null
+
+#### NMON
+# Todos los dÃ­as se lanza recogida de datos a las 00:00 y se para a las 23:59
+00 00 * * * /swmango/scripts/SISTEMA/PERFORMANCE/nmonMNG.sh start 1>/dev/null 2>&1
+59 23 * * * /swmango/scripts/SISTEMA/PERFORMANCE/nmonMNG.sh stop 1>/dev/null 2>&1
+### 00 07,09,11,13,15,17,19 * * * /usr/bin/nmon -fTNSW -s 120 -c 60 -k power,hdisk1633,hdisk1634 -m /HISTCBL/SISTEMAS/NMON/NMON_ZENON_ESPECIAL
+
+# Carga de PS en base de datos (EQBASE)
+00 02 * * * /HISTCBL/SISTEMAS/PERFPMRS/bin/LoadPsStats.sh $(TZ=EST+24 date +%d\%m\%y) >/dev/null 2>&1
+
+# 00 23 * * * /swmango/scripts/SISTEMA/audit_MNGEXPL_finds.sh
+
+########################
+####EQUIPO SISTEMAS#####
+########################
+
+# Reinicio automatico de NFS con semaforo
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/restart.nfs.ksh > /dev/null 2>&1
+
+
+# Limpieza de logs de reparto del dia anterior
+27 20 * * 0,6 /usr/bin/find /MNG/EXPL/LOGS/REPARTOS/* -type f -mtime +1 -exec rm {} \; 1> /dev/null 2>&1
+
+03,08,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/CHECKS/netstat.sh
+11 11 * * * /swmango/scripts/SISTEMA/PERFORMANCE/verpesados_hoy_bch.sh
+#13,43 * * * * /swmango/scripts/SISTEMA/SINCRO/mata_m8_colgadas.sh >> /HISTCBL/LOGS_ZENON/mata_m8_colgados.log.`date +\%m\%y`
+59 23 * * 0 /swmango/scripts/SISTEMA/MENUS/report_history.ksh >/dev/null 2>&1
+* * * * * /usr/bin/find /TEMP_EXPL -name "check_batches.lock" -mmin +5 -exec rm -f {} \\;
+# 45 05 * * * /HISTCBL/SISTEMAS/TONY/TRACE/traceit.sh 1>/dev/null 2>&1
+# 04 06 * * * /HISTCBL/SISTEMAS/TONY/TRACE/treatit.sh 1>/dev/null 2>&1
+###30,35,40,45,50,55 08 * * * /HISTCBL/SISTEMAS/PERFPMRS/bin/TPROFEXT 1> /dev/null 2>&1
+# Activamos una monitorizacion para ver el impacto de los procesos TIEN3618
+# 02,12,22,32,42,52 21,22 * * * /HISTCBL/SISTEMAS/PERFPMRS/bin/TPROFEXT.TIEN3618 1> /dev/null 2>&1
+00,30 * * * * /swmango/scripts/SISTEMA/SINCRO/desbloqmenus.sh > /dev/null 2>&1
+03 05 * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_muestrasxtiempo.ksh 10 60 /HISTCBL/LOGS_ZENON/verify_vmstat.30.result.`/swmango/scripts/SISTEMA/PERFORMANCE/check_muestrasxtiempo.ksh` >/dev/null 2>&1
+59 23 * * * /swmango/scripts/SISTEMA/PERFORMANCE/verify_vmstat.ksh /HISTCBL/LOGS_ZENON/vmstat.1sec.`date +\%d\%m\%y` 30 > /dev/null 2>&1
+* * * * * /swmango/scripts/SISTEMA/PERFORMANCE/verify_vmstat_periodic.ksh /HISTCBL/LOGS_ZENON/vmstat.1sec.`date +\%d\%m\%y` 30 50 80000 > /dev/null 2>&1
+#00 07,11,17 * * * /swmango/scripts/SISTEMA/perfpmr.sh 1>/dev/null 2>&1
+00 12,18 * * * [ -f /tmp/stop_recogida_trazas.LOCK ] && echo "Existe el fichero /tmp/stop_recogida_trazas.LOCK" | mail -s "NO SE ESTAN RECOGIENDO TRAZAS" uxss@mango.com,oriol.florejachs@mango.com && touch /tmp/stop_recogida_trazas.LOCK
+10 * * * * /swmango/scripts/SISTEMA/CHECKS/difs_perm_expl_fich.sh EXPLFICH /HISTCBL/RESTORE/PERMISOS_ZENON/ACTUAL/EXPLFICH_09abril2014.log /HISTCBL/RESTORE/PERMISOS_ZENON/ANTES/EXPLFICH_09abril2014.log 1> /tmp/difs_perm.log 2>&1
+5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/LOGS/cuenta_facturas_lifecycle.sh >/dev/null 2>&1
+# 00 03,11,19 * * * /swmango/scripts/SISTEMA/multi_montcada.sh 1>/dev/null 2>&1
+# 00,15,30,45 * * * * /swmango/scripts/SISTEMA/multi_montcada2.sh 1>/dev/null 2>&1
+# 0 2,4,7,10,12,16,18,23 * * * /swmango/scripts/SISTEMA/trazas.sh 1>/dev/null 2>&1
+00 05 * * 6 /swmango/scripts/SISTEMA/LIMPIEZA/check_files_usat.sh
+# 5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/chivaPHANTOM.sh 1>/dev/null 2>&1
+# Movemos la programación 2 minutos en el tiempo
+# 2,7,12,17,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/SISTEMA/chivaPHANTOM.sh 1>/dev/null 2>&1
+00,30 * * * * /swmango/scripts/SISTEMA/CHECKS/check_ldapcl.sh 1>>/HISTCBL/SISTEMAS/LOGS/TEMP_BCK/ldap_client.log
+14,29,44,59 * * * * /swmango/scripts/SISTEMA/CHECKS/check_pcnfsd.sh 1>/dev/null 2>&1
+0,10,20,30,40,50 21-23 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/vigila_batches.sh 1>/dev/null
+0,10,20,30,40,50 7-19 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/vigila_batches_especial.sh 1>/dev/null
+27 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_retrasos_batch.ksh 1>/dev/null 2>&1
+06,21,36,51 * * * * /swmango/scripts/SISTEMA/CHECKS/check_retrasos_batch_stat.ksh 1>/dev/null 2>&1
+06 * * * * /swmango/scripts/SISTEMA/CHECKS/check_batches_tardones.sh 1>/dev/null 2>&1
+00 03 * * * /swmango/scripts/SISTEMA/CHECKS/check_disk.sh 1>/dev/null 2>$1
+1,21,41 1-19 * * 0-5 /swmango/scripts/SISTEMA/BALDUFA/baldufa.sh 1> /dev/null 2>$1
+1,21,41 23-0 * * 0-5 /swmango/scripts/SISTEMA/BALDUFA/baldufa.sh 1> /dev/null 2>$1
+1,21,41 4-19 * * 6 /swmango/scripts/SISTEMA/BALDUFA/baldufa.sh 1> /dev/null 2>$1
+7,14,21,28,35,42,49,56 * * * * /swmango/scripts/SISTEMA/USAT/permausat.sh 2>/dev/null
+0 12 * * * /swmango/scripts/SISTEMA/LOGS/menus.sh
+#0 4 * * 1-5 /swmango/scripts/SISTEMA/limpieza_logs 1>>/tmp/limpieza_logs.log.`date +\%d` 2>>/tmp/limpieza_logs.err.`date +\%d`
+#0 4 * * 1-5 /swmango/scripts/SISTEMA/limpieza_dirs_zenon.sh 1>/dev/null 2>&1
+0 4 15 * * /swmango/scripts/SISTEMA/LOGS/limpia_expl_logs.sh 1>/dev/null 2>&1
+0 4 * * 0 /swmango/scripts/SISTEMA/LIMPIEZA/netejaLOGS.sh 1>/dev/null 2>&1
+30 4 * * 1-5 /swmango/scripts/SISTEMA/SCM/comprimeSCM 1>/dev/null 2>/dev/null
+15 0 * * 0-5 /swmango/scripts/SISTEMA/BALDUFA/pasa.sh 1>>/tmp/pasa.log.`date +\%d` 2>>/tmp/pasa.err.`date +\%d`
+15 4 * * 4 /swmango/scripts/SISTEMA/BALDUFA/pasa.sh 1>>/tmp/pasa.log.`date +\%d` 2>>/tmp/pasa.err.`date +\%d`
+59 23 * * * /swmango/scripts/SISTEMA/BALDUFA/verifyuxnovell.sh 1>>/tmp/verifyuxnovell.log.`date +\%d` 2>>/tmp/verifyuxnovell.err.`date +\%d`
+0 2 * * 1 /swmango/scripts/SISTEMA/LOGS/saveconf.sh 1>/dev/null
+0 2 * * * /swmango/scripts/SISTEMA/LOGS/saveexport.sh 1>/dev/null
+15 2 * * * /swmango/scripts/SISTEMA/LOGS/confsym.sh 1>/dev/null
+0 4 * * * /swmango/scripts/SISTEMA/LOGS/tarsvarios 1>/dev/null
+0 1 * * * /swmango/scripts/SISTEMA/CHECKS/desgloseocupa >/HISTCBL/LOGS_ZENON/ocupacions.`date +\%d\%m\%y`
+0 3 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasascripts.sh 1>/dev/null 2>/dev/null
+0 7,12 * * * /swmango/scripts/SISTEMA/CHECKS/espacio.sh 1>>/tmp/espacio.log.`date +\%d` 2>>/tmp/espacio.err.`date +\%d`
+0 7,12 * * * /swmango/scripts/SISTEMA/CHECKS/espacio2.sh 1>>/tmp/espacio2.log.`date +\%d` 2>>/tmp/espacio2.err.`date +\%d`
+0 * * * * /swmango/scripts/SISTEMA/CHECKS/espacio3.sh 1>>/tmp/espacio3.log.`date +\%d` 2>>/tmp/espacio3.err.`date +\%d`
+0 9 1,15 * * /swmango/scripts/SISTEMA/CHECKS/fichsMNG.sh 1>/dev/null 2>&1
+0 7 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/checkAIX.sh 1>/dev/null 2>&1
+30 0 1 * * /swmango/scripts/SISTEMA/PERMISOS/chgPermisoscpFICHS.sh 1>/dev/null 2>&1
+03,18,33,48 * * * * /swmango/scripts/SISTEMA/CHECKS/check_encajados.sh 1>/dev/null 2>&1
+04,19,34,49 * * * * /swmango/scripts/SISTEMA/CHECKS/check_lock_scripts.sh 1>/dev/null 2>&1
+#Monitor de Consumos nmon
+00 07 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/check_rmmapinx.sh 1>/dev/null
+02,07,12,17,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/ps2.sh 2>/dev/null 1>>/HISTCBL/LOGS_ZENON/MNG/EXPL/TMP/RDTO/ps2.$(date +\%d\%m\%y)
+# * * * * * /swmango/scripts/SISTEMA/PERFORMANCE/ps.ksh 2>/dev/null 1>>/HISTCBL/LOGS_ZENON/MNG/EXPL/ps.$(date +\%d\%m\%y)
+###25 07,09,11,13,15,17 * * * /swmango/scripts/SISTEMA/check_ftp_nexica.sh 1>/dev/null 2>&1
+# audit rotacion archivo
+#####00 19 * * * /audit/restart_audit.sh
+# Proceso que comprueba si existen FTPs colgados en el sistema
+# 04,19,34,49 07-22 * * * ps -ef | grep -w ftp | grep -v grep | mail -s "REPORT FTPS" uxss@mango.com
+04,19,34,49 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_ftp.ksh 1>/dev/null 2>&1
+# 04,09,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_ftp.ksh 1>/dev/null 2>&1
+1,21,41 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_procs_users.ksh 1>/dev/null 2>&1
+# 04 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_process_old.ksh 1>/dev/null 2>&1
+12 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_proc_tardones.sh 1>/dev/null 2>&1
+00 12 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/check_multi.sh
+#0 2,4,6,8,10,12,14,16,18,20 * * * /swmango/scripts/SISTEMA/CHECKS/check_users_almacenes.sh 1>/dev/null 2>&1
+02,17,32,47 * * * * /swmango/scripts/SISTEMA/CHECKS/check_conexiones_cron.sh 
+
+#Sincronizacion entre ZENON y PARMENIDES
+07 15 * * 1,4 /swmango/scripts/SISTEMA/RSYNC/rsync_MNGHIST2.sh 1>/HISTCBL/LOGS_ZENON/rsync_MNGHIST-`date +\%d\%m\%y`.log 2>&1
+13 15 * * 2,5 /swmango/scripts/SISTEMA/RSYNC/rsync_EXPL.sh 1>/HISTCBL/LOGS_ZENON/rsync_EXPL-`date +\%d\%m\%y`.log 2>&1
+17 15 * * 3,6 /swmango/scripts/SISTEMA/RSYNC/rsync_TRASPASOS.sh  1>/HISTCBL/LOGS_ZENON/rsync_TRASPASOS-`date +\%d\%m\%y`.log 2>&1
+
+07 15 * * 0 /swmango/scripts/SISTEMA/RSYNC/rsync_MNGHIST2.sh 1>/HISTCBL/LOGS_ZENON/rsync_MNGHIST-`date +\%d\%m\%y`.log 2>&1
+13 15 * * 0 /swmango/scripts/SISTEMA/RSYNC/rsync_EXPL.sh 1>/HISTCBL/LOGS_ZENON/rsync_EXPL-`date +\%d\%m\%y`.log 2>&1
+17 15 * * 0 /swmango/scripts/SISTEMA/RSYNC/rsync_TRASPASOS.sh  1>/HISTCBL/LOGS_ZENON/rsync_TRASPASOS-`date +\%d\%m\%y`.log 2>&1
+
+
+1,15,30,45 * * * * /swmango/scripts/SISTEMA/CHECKS/check_queues_montcada.sh  1>/dev/null 2>/dev/null
+01,11,21,31,41,51 * * * * /swmango/scripts/SISTEMA/CHECKS/upqueues_fast.sh  1>/dev/null 2>/dev/null
+0 20 * * * /swmango/scripts/SISTEMA/DWH/comprimeLOGS_DWH  1>/dev/null 2>/dev/null
+#0 7 * * 1-5 /swmango/scripts/SISTEMA/monitorizaCAMBIOSDIRECTORIO.sh  1>/dev/null 2>&1
+15 16 * * 0,6 /swmango/scripts/SISTEMA/CHECKS/check_batches.sh | /usr/bin/mail -s "Report Batches" uxss@mango.com,montse.perernau@mango.com,oriol.florejachs@mango.com
+15 13 * * 0,6 /swmango/scripts/SISTEMA/CHECKS/check_batches.sh | /usr/bin/mail -s "Report Batches" uxss@mango.com
+30 20 * * 6 /swmango/scripts/SISTEMA/CHECKS/check_batches.sh | /usr/bin/mail -s "Report Batches" uxss@mango.com
+
+#Configuraciones cabinas de discos
+00 07 * * * /swmango/scripts/SISTEMA/STORAGE/configuracio.sh 1>/dev/null 2>&1
+# Rota el wtmp
+00 00 * * * /swmango/scripts/SISTEMA/LOGS/rota-wtmp.sh
+# Sincroniza con ZENONDR
+00 04 * * * /swmango/scripts/SISTEMA/sincroniza_zenondr.sh 1>/dev/null 2>&1
+# Script de limpieza
+#05 03 * * * /swmango/scripts/SISTEMA/limpieza_total1.sh 1>/dev/null 2>&1
+#05 03 * * 6 /swmango/scripts/SISTEMA/limpieza_total1_finde.sh 1>/dev/null 2>&1
+00 01 * * * /swmango/scripts/SISTEMA/LIMPIEZA/comprime_bloques.ksh 1>/dev/null 2>&1
+10 01 * * * /swmango/scripts/SISTEMA/LIMPIEZA/limpiezaMNG.sh 1>/dev/null 2>&1
+01 00 * * * /swmango/scripts/SISTEMA/LIMPIEZA/limpiezaMNGHIST.sh 1>/dev/null 2>&1
+02 01 * * * /swmango/scripts/SISTEMA/LIMPIEZA/limpiezaHISTCBL.sh 1>/dev/null 2>&1
+30 01 * * * cat /swmango/scripts/SISTEMA/LIMPIEZA/limpiezaMNG.sh /swmango/scripts/SISTEMA/LIMPIEZA/limpiezaMNGHIST.sh 1>/MNG/DESA/politicas_limpieza.txt 2>/dev/null
+# Sincronizacion de usuarios de LDAP
+30 06 * * * /swmango/scripts/SISTEMA/ldap/sync_LDAP_files.sh 1>/tmp/sync_LDAP.log 2>&1
+# Desbloqueo nocturno de pistolas
+2,17,32,47 19-23 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/desbloqueoalmacen.sh 1>/dev/null 2>&1
+2,17,32,47 0-6 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/desbloqueoalmacen.sh 1>/dev/null 2>&1
+2,17,32,47 * * * 6,0 /swmango/scripts/SISTEMA/CHECKS/desbloqueoalmacen.sh 1>/dev/null 2>&1 
+# Chequeo mails cierres almacenes
+#55 23 * * 1-5 /swmango/scripts/SISTEMA/SINCRO/check_cierre_almacenes.sh
+45 22 * * 1-5 /swmango/scripts/SISTEMA/SINCRO/comprobacion_almacenes.sh
+# Mail usuarios conectados a las 20horas
+59 19 * * 1-5 /swmango/scripts/SISTEMA/SINCRO/quants_20h.sh
+# Chequeo ficheros abiertos
+18 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/topFiles.sh 1>/dev/null 2>&1
+20 * * * * /HISTCBL/SISTEMAS/PERFPMRS/bin/TPROFEXT_TOP10 1>/dev/null 2>&1
+13,28,43,58 * * * * /swmango/scripts/SISTEMA/PERFORMANCE/check_bloqueos.ksh 1>/dev/null 2>&1
+
+#00,15,30,45 * * * *  /swmango/scripts/SISTEMA/control_fich029.sh >> /MNG/EXPL/LOGS/control_usuaris.log
+# 00,15,30,45 * * * * /swmango/scripts/SISTEMA/check_uvrpc.sh 1>/dev/null 2>&1
+
+#Hace copia de las crontab para que los usuarios puedan consultar...
+00 * * * * /usr/bin/crontab -l 1>/MNG/ADM/crontab_zenon_root 2>/dev/null
+00 * * * * cat /var/spool/cron/crontabs/rootexp 1>/MNG/ADM/crontab_zenon_rootexp 2>/dev/null
+00 * * * * cat /var/spool/cron/crontabs/td 1>/MNG/ADM/crontab_zenon_td 2>/dev/null
+
+#Cambio de permisos en /MNGHIST/EQBASE/MOLGESTOR
+#00 06 * * 1-5 /swmango/scripts/SISTEMA/chgPermisosMOLGESTOR.sh 1>/dev/null 2>&1
+
+# Calcula porcentaje de runqueue por encima de numero de CPUs
+00 4 * * * /swmango/scripts/SISTEMA/CHECKS/calculaRUNQUEUE.sh 1>/dev/null 2>&1
+# Registra numero de usuarios conectados
+00 * * * * /swmango/scripts/SISTEMA/LOGS/conta_users.sh 1>/dev/null 2>&1
+30 06 * * 1-5 /swmango/scripts/SISTEMA/LIMPIEZA/control_espacios.sh | mail -s "Ocupacion ZENON: Ficheros con tamano superior" uxss@mango.com montse.perernau@mango.com jordi.barres@mango.com josepantoni.perez@mango.com
+00 18 * * 1-5 /swmango/scripts/SISTEMA/LIMPIEZA/control_espacios.sh | mail -s "Ocupacion ZENON: Ficheros con tamano superior" uxss@mango.com montse.perernau@mango.com jordi.barres@mango.com josepantoni.perez@mango.com
+# Peticion ABRAHAM (IBM) para poder averiguar sintoma de los trompicones
+#30 07 * * 1-5 /swmango/scripts/SISTEMA/PERFORMANCE/lanzachecks.ksh
+##00 08 * * 1-5 iostat -RaTDl hdisk302 hdisk92 hdisk511 hdisk299 hdisk298 5 720 >> /HISTCBL/LOGS_ZENON/ABRAHAM/iostat.txt.`date +%Y%m%d`_`date +%k%M`
+##00 08 * * 1-5 vmstat -Itw 1 3600 >> /HISTCBL/LOGS_ZENON/ABRAHAM/vmstat_1segundo_.txt.`date +%Y%m%d`_`date +%k%M`
+##00 08 * * 1-5 vmstat -Itwp all 5 720 >> /HISTCBL/LOGS_ZENON/ABRAHAM/vmstat_5segundos_.txt.`date +%Y%m%d`_`date +%k%M`
+##00 08 * * 1-5 sar -c 5 720 >> /HISTCBL/LOGS_ZENON/ABRAHAM/sar_5segundos_.txt.`date +%Y%m%d`_`date +%k%M`
+# Scripts SINCRO
+50 23 * * 1-5 cat /LOGS/logSINCRO.$(date +\%d\%m\%y) | mail -s "[$(uname -n)] Tiempos SINCRO $(date +\%d\/\%m\/\%Y)" uxss@mango.com,oriol.florejachs@mango.com
+31 23 * * * /usr/bin/rsync -avz /HISTCBL/LOGS_ZENON/topfiles.* parmenides.privada:/MNGHIST/LOGS_ZENON/
+# TOP10 procesos Cobol
+03 04 * * * /swmango/scripts/SISTEMA/PERFORMANCE/verpesados.sh 1>/dev/null 2>&1
+# Cuenta usuarios conectados desde Citrix
+00,30 * * * * /swmango/scripts/SISTEMA/CHECKS/users_citrix.sh
+# Mata todas aquellas sesiones de usuarios rexpXXX con mas de 30 minutos de inactividad.
+04,9,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/MENUS/kill_idle_sessions.ksh 1>/dev/null 2>&1
+
+# Control de ficheros en /MNG/EXPL/DOCS
+05 00 * * 0 /swmango/scripts/SISTEMA/CHECKS/check_DOCS_files.ksh >/dev/null 2>&1
+
+# Check de monitorizacion de LLICA
+03,18,33,48 00-20 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/check_backgrounds_llica.sh >/dev/null 2>&1 
+03,18,33,48 22,23 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/check_backgrounds_llica.sh >/dev/null 2>&1 
+03,18,33,48 * * * 6,0 /swmango/scripts/SISTEMA/CHECKS/check_backgrounds_llica.sh >/dev/null 2>&1 
+
+# Revisión de repartos entre las 21:00 y las 00:00
+
+00,15,30,45 21,22,23 * * 1-5 /swmango/scripts/SISTEMA/CHECKS/check_repartos.ksh >/dev/null 2>&1
+
+##################
+####EQA###########
+##################
+# La siguiente linea debe ser ejecutada SIEMPRE en la crontab de root!!!!
+### 00,15,30,45 * * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0025 EQA PRICAT
+
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG3_ZENON 1>/dev/null 2>&1
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQG3_ZENON 1>/dev/null 2>&1
+#00 18 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG3_ZENON 1>/dev/null 2>&1
+#00 18 * * 6 /swmango/scripts/EXPL/exe_DWH_EQG3_ZENON 1>/dev/null 2>&1
+
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQGAP1_ZENON 1>/dev/null 2>&1
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQGAP1_ZENON 1>/dev/null 2>&1
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQGAP2_ZENON 1>/dev/null 2>&1
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQGAP2_ZENON 1>/dev/null 2>&1
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQGAP3_ZENON 1>/dev/null 2>&1
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQGAP3_ZENON 1>/dev/null 2>&1
+
+00 16 * * 6 /swmango/scripts/EXPL/exe_DWH_EQG34_ZENON 1>/dev/null 2>&1
+00 19 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG34_ZENON 1>/dev/null 2>&1
+00 16 * * 6 /swmango/scripts/EXPL/exe_DWH_EQG35_ZENON 1>/dev/null 2>&1
+00 19 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG35_ZENON 1>/dev/null 2>&1
+
+## Programacion extraordinaria de EXTRACCIONES
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG3_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG34_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG35_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_DWH_EQGB_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Y_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Z_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_IPE_EQBG_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/EXPL/exe_IPE_EQJ_ZENON 1>/dev/null 2>&1
+# 00 10 * * 0 /swmango/scripts/SISTEMA/EXTRACCIONES/LANZA_EXTRA_ZENON_DIARIA 1>/dev/null 2>&1
+
+# Proceso que mueve el fichero FICH2307 a historico cada primero de mes
+09 00 1 * * /swmango/scripts/SISTEMA/LIMPIEZA/moverFICH2307.ksh 1>/dev/null 2>&1
+
+
+##################
+####EQB###########
+##################
+
+35 09 * * * /swmango/scripts/SISTEMA/MANGOSHOP/lista-ebusiness.ksh
+
+### 00 13 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3496 EQB
+### 00 02 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3496 EQB
+### 30 19 * * 1-6 /swmango/scripts/EXPL/exe_PROGCOB TIEN4133 EQBC
+### 5,20,39,50 6-19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN430 EQBC
+### 0,10,20,30,40,50 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN604 EQB
+### 0 8 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1870 EQBG
+### 30 9,13,17 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1832 EQBG
+### 30 9,13,17 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5769 EQBG
+### 45 23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1832 EQBG
+### 45 23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5769 EQBG
+### 30 9-18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2085 EQBG
+### * 6-19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1244 EQBC
+### 0,10,20,30,40,50 * * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2729 EQBC
+### 0,15,30,45 00-19,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3091 EQB
+### 0,30 00-19,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3133 EQB
+### 00 15 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3958 EQBC
+### 30 18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4196 EQBG
+# 00 12 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB DWH-EXTEQB1Z EQBC
+# 45 18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB DWH-EXTEQB1Z EQBC
+### 20 07 * * 2-6 /swmango/scripts/EXPL/exe_PROGCOB TIEN4539 EQBG
+### 15 19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4707 EQBC
+
+## PROGRAMACION EXTRAORDINARIA
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQGB_ZENON 1>/dev/null 2>&1
+#00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQGB_ZENON 1>/dev/null 2>&1
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQGB_ZENON 1>/dev/null 2>&1
+
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02_ZENON 1>/dev/null 2>&1
+#00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02_ZENON 1>/dev/null 2>&1
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02_ZENON 1>/dev/null 2>&1
+
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Y_ZENON 1>/dev/null 2>&1
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Y_ZENON 1>/dev/null 2>&1
+#00 18 * * 6 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Y_ZENON 1>/dev/null 2>&1
+
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Z_ZENON 1>/dev/null 2>&1
+00 20 * * 6 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Z_ZENON 1>/dev/null 2>&1
+#00 18 * * 6 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Z_ZENON 1>/dev/null 2>&1
+
+00 20 * * 0 /swmango/scripts/EXPL/exe_DWH_EQBZ2B_ZENON 1>/dev/null 2>&1
+
+#00 16 * * 1-5 /swmango/scripts/EXPL/exe_DWH_EQB13D_ZENON 1>/dev/null 2>&1
+
+# Proceso recogida dwhcons + cobol EQB
+5 0-7 * * 1-5 /swmango/scripts/SISTEMA/cogeDWHCONS expl 1>>/tmp/cogeDWHCONS 2>>/tmp/cogeDWHCONS
+
+# El siguiente proceso ejecuta recogida de ficheros cogeMACOSXgraf.sh y TIEN3186
+### 00,30 09-19 * * 1-5 /swmango/scripts/EXPL/exe_TIEN3186
+
+# Traspaso de ficheros de EKOL
+#0 13,18 * * 1-5 /swmango/scripts/SISTEMA/cogeEKOL.sh 
+#10 13,18 * * 1-5 /swmango/scripts/SISTEMA/pasaEKOL.sh
+
+#30 23 * * * /swmango/scripts/SISTEMA/pasaBDPROD-ZENON.sh 1>/dev/null 2>&1
+
+#Traspaso de ficheros hacia prodorainet
+00 07 * * * /swmango/scripts/SISTEMA/INTRANET/pasaUNIFORMESprodorainet2.sh 1>/dev/null 2>&1
+
+#Traspaso de ficheros hacia E-Business
+00 00,02,04,06,08,10,12,14,16,18,20,22 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaEB-MEDIDAS.sh 1>/dev/null 2>&1
+
+#Traspaso JEVASO
+# 08,18,28,38,48,58 * * * * /swmango/scripts/SISTEMA/pasaJEVASOparmenides.sh 1>/dev/null 2>/dev/null
+#03,08,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/pasaJEVASOonline.sh 1>/dev/null 2>/dev/null
+### 04,9,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/cogeJEVASOonline.sh 1>/dev/null 2>/dev/null
+### 01,16,31,46 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5485 EQB 1>/dev/null 2>&1
+### 30 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5486 EQB 1>/dev/null 2>&1
+
+00 22 * * 6,0 /swmango/scripts/EXPL/exe_IPE_EQBG_ZENON 1>/dev/null 2>&1
+
+##################
+####EQG2##########
+##################
+
+# Traspaso de ficheros a DWH. OJO, no migrar a rootexp porque hace un "su - td"
+
+00 01 * * 1,2,4,5,6 /swmango/scripts/EXPL/exe_DWH_EQG2B_ZENON 1>/dev/null 2>&1
+00 01 * * 3 /swmango/scripts/EXPL/exe_DWH_EQG2B_ZENON 1>/dev/null 2>&1
+00 06 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG2B_ZENON 1>/dev/null 2>&1
+#00 09 * * 0 /swmango/scripts/EXPL/exe_DWH_EQG2B_ZENON 1>/dev/null 2>&1
+
+##################
+####EQG3##########
+##################
+# Traspaso de ficheros a EDI via ftp2. Regocida y enviamos a Gestor documental
+#####00,05,10,15,20,25,30,35,40,45,50,55 00-19,23 * * * /swmango/scripts/SISTEMA/EDI/traspasoEDI.sh 1>/dev/null 2>&1
+
+##################
+####EQJ###########
+##################
+
+### 6 7 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN942 EQJ
+### 40 13 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN230 EQJ AL
+
+#Se ejecuta el dia 1 de cada mes
+### 30 13 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN230 EQJ AA
+### 35 13 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN230 EQJ AD
+### 00 18 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1293 EQJ A
+### 00 18 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1283 EQJ A
+
+# Traspaso de ficheros a DWH
+00 01 * * 1,2,4,5,6 /swmango/scripts/EXPL/exe_DWH_EQJ_ZENON
+30 01 * * 3 /swmango/scripts/EXPL/exe_DWH_EQJ_ZENON
+00 06 * * 0 /swmango/scripts/EXPL/exe_DWH_EQJ_ZENON
+#00 09 * * 0 /swmango/scripts/EXPL/exe_DWH_EQJ_ZENON
+
+#Peticion de Estrella Abril (912109)
+#00 01 * * 1-6 /swmango/scripts/EXPL/exe_DWH_EQJ3_ZENON 
+#00 06 * * 0 /swmango/scripts/EXPL/exe_DWH_EQJ3_ZENON 
+
+00 22 * * 6,0 /swmango/scripts/EXPL/exe_IPE_EQJ_ZENON 1>/dev/null 2>&1
+
+##################
+####EQD###########
+##################
+
+15 11 * * 1-5 /swmango/scripts/SISTEMA/pasaraFinanzia.sh 1>/dev/null 2>/dev/null
+0 7 1 * * /swmango/scripts/SISTEMA/LOGS/comprimeCergfin.sh
+### 0 11 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONTTC EQDGP
+### 10 07-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT0391 EQDGP
+00 07-19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/traspasosGESPERprodorainet.sh 1>/dev/null 2>&1
+04,34 07-18 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/traspasosGESPERprodorainet2.sh 1>/dev/null 2>&1
+05,35 * * * * /swmango/scripts/SISTEMA/INTRANET/traspasosGESPERprodorainet_ABSEN.sh 1>/dev/null 2>&1
+55 11,18 * * * /swmango/scripts/SISTEMA/INTRANET/cogePETISprodorainet.sh 1>/dev/null 2>&1
+30 18 * * * /swmango/scripts/SISTEMA/INTRANET/traspasosGESPERprodorainet_HORARIOS.sh
+06,36 * * * * /swmango/scripts/SISTEMA/INTRANET/cogePRODORAINET-PREV.sh 1>/dev/null 2>&1
+#traspasos WorkFlow
+# 0,5,10,15,20,25,30,35,40,45,50,55 06-19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeWFLOW-PRODWFINET.sh 1>/dev/null 2>&1
+05,11,17,23,29,35,41,47,53,59 06-19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeWFLOW-PRODWFINET.sh 1>/dev/null 2>&1
+#* 03-19 * * * /swmango/scripts/SISTEMA/INTRANET/cogeWFLOW-DESWFINET.sh 1>/dev/null 2>&1
+#* 03-19 * * * /swmango/scripts/SISTEMA/pasaWFLOW-DESWFINET.sh 1>/dev/null 2>&1
+5 * * * * /swmango/scripts/SISTEMA/INTRANET/cogeHEXTprodorainet.sh 1>/dev/null 2>&1
+
+#Traspaso de ficheros a DWH
+00 11 * * 1-6 /swmango/scripts/SISTEMA/FTP2/footfall.sh 1>/dev/null 2>&1
+00 14 * * 0 /swmango/scripts/SISTEMA/FTP2/footfall.sh 1>/dev/null 2>&1
+#00 13 * * 0-5 /swmango/scripts/EXPL/exe_DWH_EQD_ZENON 1>/dev/null 2>&1
+#00 16 * * 6 /swmango/scripts/EXPL/exe_DWH_EQD_ZENON 1>/dev/null 2>&1
+
+00 15 * * 1-5 /swmango/scripts/SISTEMA/FTP2/cadhoc.sh 1>/dev/null 2>&1
+
+#################
+####EQG##########
+#################
+
+### 00,05,10,15,20,25,30,35,40,45,50,55 06-19 * * 1-5 /swmango/scripts/EXPL/exe_TIEN3332
+### 30 23 * * 1-4 /swmango/scripts/EXPL/exe_TIEN1065
+### 0 22 * * 0 /swmango/scripts/EXPL/exe_TIEN1065
+#Peti SSanz 3/1/5
+### 5 0 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1584 EQG
+### 5 2 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN1584 EQG
+#Peti SSanz 24/2/5
+#5,20,35,50 1-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1683 EQG
+#5,20,35,50 23-0 * * 1-6 /swmango/scripts/EXPL/exe_PROGCOB TIEN1683 EQG
+#5,20,35,50 2-19 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN1683 EQG
+#Peti Joan Marc Espinosa
+### 0 1,12 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3507 EQG A
+### 59 01 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2690 EQG3
+### 00 07 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5068 EQG3 M
+#Peti M. del Carmen Martinez 23/09/2009
+# Parets
+### 0 0 * * 0,1,2,3,4,5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2492 EQG C
+### 0 2 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN2492 EQG C
+# Peticion Jerry (395757)
+### 00 02 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3647 EQG
+#Peticion Santiago Nicolas Fernandez
+#Facturacion segundo trama JCP a partir de M5
+### 00 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4019 EQG
+#Verificacion facturacion segundo tramo JCP
+### 00 01 * * 1 /swmango/scripts/EXPL/exe_PROGCOB TIEN4075 EQG
+#Peticion J.M Espinosa (549483)
+### 30 01 * * *  /swmango/scripts/EXPL/exe_PROGCOB TIEN4277 EQG FN
+#Peticio Roger Guzman (777325)
+#05 00 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5310 EQG3
+#Peticion Josep Maria Marti Aliu (847288)
+### 15 0,4,8,12,16,19,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5482 EQG3
+#Peticion Antonio Martinez Jodar (882801)
+### 00 00,09 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5631 EQG3 
+
+#################
+####EQMOL####
+#################
+
+
+############################### 
+####EQUNIVERSE ( traspasos )###
+###############################
+
+
+#################
+####EQGENERAL####
+#################
+
+#0 10 * * 0 /swmango/scripts/EXPL/exe_DOMINGO 1>/dev/null
+15 0 * * * /swmango/scripts/EXPL/exe_DIARIO
+#0 3 * * 6 /swmango/scripts/EXPL/exe_DIARIO
+
+##############
+####EQBASE####
+##############
+
+50 09 03 02 * /swmango/scripts/EXPL/COPIARMK.sh 1>/dev/null 2>&1
+#00 11 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0020 EQBASE 0VD  # (571774) Mod. pero no cambiado a cron rootexp. Parado: problemas email
+#00 11 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0020 EQBASE 0STOCKMANN  # (574425)
+
+### Proceso comentado por peticion de Joel Rami
+### 00 * * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0088 EQBASE 0,1,`date +\%Y\%m\%d\,\%H\:\%M`,0060 1>/dev/null 2>&1
+#contiene llamada a exe_PROGCOB
+00 04 * * * /swmango/scripts/EXPL/exe_BASE0040 1>/dev/null 2>&1 
+30 02 * * * /swmango/scripts/EXPL/exe_BASE0027 1>/dev/null 2>&1 
+# 00,05,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/EXPL/exe_BASE0054.sh 1>/dev/null 2>&1 
+00,06,12,18,24,30,36,42,48,54 * * * * /swmango/scripts/EXPL/exe_BASE0054.sh 1>/dev/null 2>&1
+# 40 23 13 05 * /usr/bin/su - 03550051 -c "/MNG/DESA/FUENTES/EQBASE/SCRIPTS/doVCOMPIPRETOT.sh" 1>/tmp/doVCOMPIPRETOT.log.`date +\%d` 2>&1
+# 30 23 07 11 * /usr/bin/su - 03550051 -c "/MNG/DESA/FUENTES/EQBASE/SCRIPTS/doVCOMPITOT.sh" 1>/tmp/doVCOMPITOT.log.`date +\%d` 2>&1
+# 30 23 27 11 * /usr/bin/su - 03550051 -c "/MNG/DESA/FUENTES/EQBASE/SCRIPTS/doVCOMPICATTOT.sh" 1>/tmp/doVCOMPICATTOT.log.`date +\%d` 2>&1
+# 30 01 14 02 * /usr/bin/su - 03550051 -c "/MNG/DESA/VFUENTES/EQBASE/SCRIPTS/doVCOMPITOTMB.sh" 1>/tmp/doVCOMPITOTMB.log.`date +\%d` 2>&1
+#####00 23 * * 1-5 /usr/bin/su - 03550051 -c "/MNG/DESA/FUENTES/EQBASE/SCRIPTS/doVALCATAL.sh" 1>/dev/null 2>&1
+#00 07 * * 1-5 /usr/bin/su - 03550051 -c "/MNG/DESA/VFUENTES/EQBASE/COPIAS/FUENTES_ATS/comparaATS.sh" 1>/dev/null 2>&1
+# 00 17 * * 5 /usr/bin/su - 03550051 -c "/MNG/DESA/VFUENTES/EQBASE/COPIAS/FUENTES_ATS/comparaATS.sh" 1>/dev/null 2>&1
+# 22 * * * * /usr/bin/su - 03550051 -c "/MNG/DESA/FUENTES/EQBASE/SCRIPTS/doCONTRM.sh" 1>/dev/null 2>&1
+# 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * * /swmango/scripts/EXPL/exe_PROGCOBMK PRCRON EQBASE 1> /tmp/prcron.log 2> /tmp/prcron.err
+# 1,6,11,16,21,26,31,36,41,46,51,56 7-18 * * 1-5 /swmango/scripts/SISTEMA/EDI/traspasoEDI.sh 1>/tmp/traspasEDI.log.`date +\%d` 2>/tmp/traspasEDI.err.`date +\%d`
+01,07,13,19,25,31,37,43,49,55 7-18 * * 1-5 /swmango/scripts/SISTEMA/EDI/traspasoEDI.sh 1>/tmp/traspasEDI.log.`date +\%d` 2>/tmp/traspasEDI.err.`date +\%d`
+# 00,05,10,15,20,25,30,35,40,45,50,55 00-19,22-23 * * * /swmango/scripts/SISTEMA/EDI/traspasoEDITICKETS.sh 1>/tmp/traspasEDITICKETS.log.`date +\%d` 2>/tmp/traspasEDITICKETS.err.`date +\%d`
+02,08,14,20,26,32,38,44,50,56 00-19,22-23 * * * /swmango/scripts/SISTEMA/EDI/traspasoEDITICKETS.sh 1>/tmp/traspasEDITICKETS.log.`date +\%d` 2>/tmp/traspasEDITICKETS.err.`date +\%d`
+
+#################################
+####PASO FICHEROS ENTRE SISTEMAS#
+#################################
+# * * * * * /swmango/scripts/SISTEMA/traspasoSDImontcada.sh 1>/dev/null 2>/dev/null
+# 00 20 * * * /swmango/scripts/SISTEMA/pasaFNZ.sh >/dev/null 2>&1
+0 5 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTSYSTEMS-BDPROD.sh 1>/dev/null 2>/dev/null
+0 10 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaBDPROD-TSYSTEMS.sh 1>/dev/null 2>/dev/null
+# 00 02 * * * /swmango/scripts/SISTEMA/pasaSELLBYTEL.sh > /dev/null 2>&1
+#4,9,14,19,24,29,34,39,44,49,54,59 9-18 * * 1-5 /swmango/scripts/SISTEMA/pasaRED.sh 1>/dev/null 2>/dev/null
+
+##############################
+####Paso Mensajes PLATAFORMA##
+####EQB: M1,M2,Customers,Boms#
+####EQG: M8,M16###############
+####EQH: M2P   ###############
+##############################
+#Recogida de Mensajes
+03,33 0-19 * * 1-6 /swmango/scripts/SISTEMA/cogeMx M2 expl >>/MNG/EXPL/SCM/ORACLE/M2/LOGS/cogeM2expl.log.`date +\%d\%m\%y` 2>>/MNG/EXPL/SCM/ORACLE/M2/LOGS/cogeM2expl.err.`date +\%d\%m\%y`
+# 0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/cogeM3 expl >>/MNG/EXPL/SCM/ORACLE/M3/LOGS/cogeM3expl.log.`date +\%d\%m\%y` 2>>/MNG/EXPL/SCM/ORACLE/M3/LOGS/cogeM3expl.err.`date +\%d\%m\%y`
+04,10,16,22,28,34,40,46,52,58 * * * * /swmango/scripts/SISTEMA/cogeM3 expl >>/MNG/EXPL/SCM/ORACLE/M3/LOGS/cogeM3expl.log.`date +\%d\%m\%y` 2>>/MNG/EXPL/SCM/ORACLE/M3/LOGS/cogeM3expl.err.`date +\%d\%m\%y`
+57 5-19 * * 1-6 /swmango/scripts/SISTEMA/cogeMx M11 expl >>/tmp/cogeM11expl.log.`date +\%d\%m\%y` 2>>/tmp/cogeM11expl.err.`date +\%d\%m\%y`
+30 5-19 * * 1-6 /swmango/scripts/SISTEMA/cogeMx M14 expl >>/tmp/cogeM14expl.log.`date +\%d\%m\%y` 2>>/tmp/cogeM14expl.err.`date +\%d\%m\%y`
+
+#Paso de Mensajes
+45 17 * * 1-5 /swmango/scripts/SISTEMA/pasaSD M13 expl 1>>/tmp/pasaM13expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM13expl.err.`date +\%d\%m\%y`
+# 0 14 * * 1-6 /swmango/scripts/SISTEMA/pasaSD M3MNG expl 1>>/tmp/pasaM3MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM3MNGexpl.err.`date +\%d\%m\%y`
+## 0 20 * * 1-5 /swmango/scripts/SISTEMA/pasarM1 expl 1>>/tmp/pasaM1expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM1expl.err.`date +\%d\%m\%y`
+## 45 14 * * 1-4 /swmango/scripts/SISTEMA/pasarM1INC expl 1>>/tmp/pasaM1INCexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM1INCexpl.err.`date +\%d\%m\%y`
+## 05 09 * * 1-5 /swmango/scripts/SISTEMA/pasarM1INC expl 1>>/tmp/pasaM1INCexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM1INCexpl.err.`date +\%d\%m\%y`
+## 10 13 * * 5 /swmango/scripts/SISTEMA/pasarM1INC expl 1>>/tmp/pasaM1INCexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM1INCexpl.err.`date +\%d\%m\%y`
+30 0 * * 1-6 /swmango/scripts/SISTEMA/pasaSD M15T expl 1>>/tmp/pasaM15Texpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM15Texpl.err.`date +\%d\%m\%y`
+0 18 * * * /swmango/scripts/SISTEMA/pasaSD M16 expl 1>>/tmp/pasaM16expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM16expl.err.`date +\%d\%m\%y`
+00 23 * * 0,1,2,3,4,6 /swmango/scripts/SISTEMA/pasaSD M2MNG expl 1>>/tmp/pasaM2MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM2MNGexpl.err.`date +\%d\%m\%y`
+00 22 * * 5 /swmango/scripts/SISTEMA/pasaSD M2MNG expl 1>>/tmp/pasaM2MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM2MNGexpl.err.`date +\%d\%m\%y`
+# Nota para M14 : En caso de paro de cron tener en cuenta ejecutarlo ese mismo dia
+10 0 * * 1-5 /swmango/scripts/SISTEMA/pasarM14 expl 1>>/tmp/pasaM14expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM14expl.err.`date +\%d\%m\%y`
+10 2 * * 6 /swmango/scripts/SISTEMA/pasarM14 expl 1>>/tmp/pasaM14expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM14expl.err.`date +\%d\%m\%y`
+00 5 * * 0 /swmango/scripts/SISTEMA/pasarM14 expl 1>>/tmp/pasaM14expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM14expl.err.`date +\%d\%m\%y`
+# 0,5,10,15,20,25,30,35,40,45,50,55 4-19 * * * /swmango/scripts/SISTEMA/pasaSD M8 expl 1>>/tmp/pasaM8expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM8expl.err.`date +\%d\%m\%y`
+# Movemos la programación 2 minutos en el tiempo
+# 2,7,12,17,22,27,32,37,42,47,52,57 4-19 * * * /swmango/scripts/SISTEMA/pasaSD M8 expl 1>>/tmp/pasaM8expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM8expl.err.`date +\%d\%m\%y`
+02,08,14,20,26,32,38,44,50,56 4-19 * * * /swmango/scripts/SISTEMA/pasaSD M8 expl 1>>/tmp/pasaM8expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM8expl.err.`date +\%d\%m\%y`
+0 7 * * 1-5 /swmango/scripts/SISTEMA/pasaSD M6 expl 1>>/tmp/pasaM6MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM6MNGexpl.err.`date +\%d\%m\%y`
+30 14 * * 1-4 /swmango/scripts/SISTEMA/pasaSD M6 expl 1>>/tmp/pasaM6MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM6MNGexpl.err.`date +\%d\%m\%y`
+10 17 * * 1-4 /swmango/scripts/SISTEMA/pasaSD M6 expl 1>>/tmp/pasaM6MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM6MNGexpl.err.`date +\%d\%m\%y`
+0 13 * * 5 /swmango/scripts/SISTEMA/pasaSD M6 expl 1>>/tmp/pasaM6MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM6MNGexpl.err.`date +\%d\%m\%y`
+0 12 * * 1-5 /swmango/scripts/SISTEMA/pasaSD M6 expl 1>>/tmp/pasaM6MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM6MNGexpl.err.`date +\%d\%m\%y`
+55 19 * * 1-5 /swmango/scripts/SISTEMA/pasaSD M6 expl 1>>/tmp/pasaM6MNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM6MNGexpl.err.`date +\%d\%m\%y`
+20 23 * * 0,1,2,3,4,6 /swmango/scripts/SISTEMA/pasaSD M12 expl 1>>/tmp/pasaM12expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM12expl.err.`date +\%d\%m\%y`
+20 22 * * 5 /swmango/scripts/SISTEMA/pasaSD M12 expl 1>>/tmp/pasaM12expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM12expl.err.`date +\%d\%m\%y`
+00 15 * * 1-6 /swmango/scripts/SISTEMA/pasaSD AGENDA expl 1>>/tmp/pasaAGENDAexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaAGENDAexpl.err.`date +\%d\%m\%y`
+
+0 3 * * 1-5 /swmango/scripts/SISTEMA/pasaSD LICENSES expl 1>>/tmp/pasaLICENSESMNGexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaLICENSESMNGexpl.err.`date +\%d\%m\%y`
+30 19 * * 1-5 /swmango/scripts/SISTEMA/pasaSD CADS expl 1>>/tmp/pasaCADSexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaCADSexpl.err.`date +\%d\%m\%y`
+# 02,07,12,17,22,27,32,37,42,47,52,57 07-19 * * 1-5 /swmango/scripts/SISTEMA/pasaSD FAC expl 1>>/tmp/pasaFACxpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaFACexpl.err.`date +\%d\%m\%y`
+04,10,16,22,28,34,40,46,52,58 07-19 * * 1-5 /swmango/scripts/SISTEMA/pasaSD FAC expl 1>>/tmp/pasaFACxpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaFACexpl.err.`date +\%d\%m\%y`
+30 19 * * 1-5 /swmango/scripts/SISTEMA/pasaSD LICQTT expl 1>>/tmp/pasaLICQexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaLICQexpl.err.`date +\%d\%m\%y`
+
+#0,5,10,15,20,25,30,35,40,45,50,55 * * * 1-6 /swmango/scripts/SISTEMA/pasaSD M20 expl 1>>/tmp/pasaM20expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM20expl.err.`date +\%d\%m\%y`
+# Movemos la programación 2 minutos en el tiempo
+# 2,7,12,17,22,27,32,37,42,47,52,57 * * * 1-6 /swmango/scripts/SISTEMA/pasaSD M20 expl 1>>/tmp/pasaM20expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM20expl.err.`date +\%d\%m\%y`
+00,06,12,18,24,30,36,42,48,54 * * * 1-6 /swmango/scripts/SISTEMA/pasaSD M20 expl 1>>/tmp/pasaM20expl.log.`date +\%d\%m\%y` 2>>/tmp/pasaM20expl.err.`date +\%d\%m\%y`
+30 15 * * * /swmango/scripts/SISTEMA/FTP2/cogeT-CUENTO.sh 1>/dev/null 2>&1
+
+######################
+#### Procesos DWH ####
+######################
+
+00 19 * * 0 /swmango/scripts/SISTEMA/EXTRACCIONES/LANZA_EXTRA_DWH_ZENON_DOMINGO 1>/dev/null 2>&1
+30 23 * * 0,1,2,3,4 /swmango/scripts/SISTEMA/EXTRACCIONES/LANZA_EXTRA_ZENON_DIARIA 1>/dev/null 2>&1
+30 20 * * 6 /swmango/scripts/SISTEMA/EXTRACCIONES/LANZA_EXTRA_ZENON_DIARIA 1>/dev/null 2>&1
+#30 18 * * 6 /swmango/scripts/SISTEMA/EXTRACCIONES/LANZA_EXTRA_ZENON_DIARIA 1>/dev/null 2>&1
+# Forzado de ejecución de script adm_genera_carga_inc.sh con usuario TD. Hablado con Xavier Carrillo
+30 09 * * 1-6 su - td -c "/MNG/DWH/PROD/SCRIPTS/EJECUTABLES/adm_genera_carga_inc.sh" 1>/dev/null 2>&1
+#00 09 * * 1-6 su - td -c "/MNG/DWH/PROD/SCRIPTS/EJECUTABLES/adm_genera_carga_inc.sh" 1>/dev/null 2>&1
+8,23,38,53 4-5 * * 1-5 /MNG/DWH/PROD/SCRIPTS/EJECUTABLES/adm_carga_listado_contabilidad.sh 1>/tmp/log_adm_carga_cnt.txt 2>/tmp/log_err_adm_carga_cnt.txt
+00,30 9-21 * * 1-5  su - td -c "/MNG/DWH/PROD/SCRIPTS/EJECUTABLES/adm_carga_pl.sh" 1>/dev/null 2>&1 
+30 08 * * 1-5 su - td -c "/MNG/DWH/PROD/SCRIPTS/EJECUTABLES/adm_carga_bbva.sh" 1>/dev/null 2>&1
+
+# Las siguientes ejecuciones son como usuario td...
+0 11 * * * su - td -c "/swmango/scripts/EXPL/mover_extracciones_resto.sh" 1>/dev/null 2>&1
+30 23 * * 0-4 /usr/bin/su - td -c "/MNG/DWH/PROD/SCRIPTS/EJECUTABLES/carga_COM20.sh" 1>/dev/null 2>&1
+30 23 * * 0-4 /usr/bin/su - td -c "/MNG/DWH/PROD/SCRIPTS/EJECUTABLES/carga_COM21.sh" 1>/dev/null 2>&1
+
+##########################
+# Concatena ficheros 333
+#########################
+
+0 * * * * /swmango/scripts/TDPROD/adm_concatena_FICH333.sh 1>/dev/null 2>&1
+0 * * * * /swmango/scripts/TDPROD/adm_concatena_FICH3333.sh 1>/dev/null 2>&1
+00,15,30,45 * * * * /swmango/scripts/TDPROD/adm_concatena_FICH331.sh 1>/dev/null 2>&1
+
+
+##########################
+# Concatena ficheros 236 
+#########################
+
+0,15,30,45 * * * * /swmango/scripts/TDPROD/adm_concatena_FICH236.sh 1>/dev/null 2>&1 
+
+59 07 * * * /swmango/scripts/TDPROD/adm_concatena_CC370.sh 1>/dev/null 2>&1
+
+
+#########TEMPORAL
+#50 10 * * * /swmango/scripts/EXPL/exe_TIEN4997W EQBG 1>/dev/null 2>&1
+0 7 24 11 * /swmango/scripts/SISTEMA/PERFORMANCE/check_fragment.sh 1>/swmango/scripts/SISTEMA/PERFORMANCE/salida_fragment.txt 2>&1 
+0 13 24 11 * /swmango/scripts/SISTEMA/PERFORMANCE/ubicacion_storage_archivos.sh
+
+#Enable PM Data Collection
+55 23 * * * /var/perf/pm/bin/pmcfg >/dev/null 2>&1  
+
+# Carga de Ficheros Delta
+30 06 * * * /swmango/scripts/TDPROD/CLIENTE_UNICO_MOL/loadDataDelta.sh 1>/dev/null 2>&1
+
+
+# Programacion especial festivo 12/10/16 #
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQG34_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQG35_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQGAP1_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQGAP2_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQGAP3_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQG3_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQGB_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQB2_STK02_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Y_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQB2_STK02Z_ZENON
+00 20 12 10 * /swmango/scripts/EXPL/exe_DWH_EQBZ2B_ZENON

@@ -1,0 +1,894 @@
+############
+#### EQA ####
+#############
+
+0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaTXTEFAC.sh 1>/dev/null 2>&1
+1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaFACTCLI.sh 1>/dev/null 2>&1
+02 1,3,5,7,9,11,13,15,17,18,19,23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN2012 EQA 1>/dev/null 2>&1
+
+30 10 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN2843 EQA A 1>/dev/null 2>&1
+#00 01,16,18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3274 EQA 1>/dev/null 2>&1
+03 01 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3274 EQA 1>/dev/null 2>&1
+3 0 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3281 EQA 1>/dev/null 2>&1
+4 8 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3001 EQA 1>/dev/null 2>&1
+6 8 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3013 EQA 1>/dev/null 2>&1
+0 8 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaPVP-ETIQUETA.sh 1>/dev/null 2>&1
+56 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4773 EQA 1>/dev/null 2>&1
+0 8 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaCOT_TDA.sh 1>/dev/null 2>&1
+05,20,35,50 * * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0025 EQA PRICAT
+#15 07 * * *  /swmango/scripts/EXPL/exe_PROGCOB BASE0011 EQA 1>/dev/null 2>&1 # (575695)
+#05,20,35,50 9-18 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0025J EQA PRICAT >> /MNG/DESA/FICH/EQBASE/03500309/PRUEBASEDI.TXT
+#00 11 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0020 EQA 0VD 1>/dev/null 2>&1  # (571774) Mod. y cambiado a cron rootexp. Parado: problemas email
+# Se comenta por peticion 1179327
+# 00 17 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5988 EQA 00 1>/dev/null 2>&1
+00 04 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6309 EQA 1>/dev/null 2>&1
+# Traspaso Reuters
+45 07 * * * /swmango/scripts/SISTEMA/FTP2/cogeREUTERS.sh 1>/dev/null 2>&1
+50 07 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6938 EQA 1>/dev/null 2>&1
+51 07 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6937 EQA 1>/dev/null 2>&1
+
+
+#################
+#### EQ BASE ####
+#################
+
+10 06 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB BASE0072 EQBASE 1>/dev/null 2>&1
+# 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0017 EQBASE 1>/dev/null 2>&1
+02,07,12,17,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0017 EQBASE 1>/dev/null 2>&1
+### 00 23 * * 1-5 /MNG/DESA/FUENTES/EQBASE/SCRIPTS/doVALCATAL.sh 1>/dev/null 2>&1
+30 07 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0140 EQBASE 1> /tmp/BASE0140.log 2>&1
+00 06 * * 0,1 /swmango/scripts/EXPL/exe_PROGCOB ANABATCH EQBASE C 1>/dev/null 2>&1
+30 08 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0013 EQBASE 1>/dev/null 2>&1
+00 07 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0154 EQBASE 1>/dev/null 2>&1
+00 11,16 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0151 EQBASE A 1>/dev/null 2>&1
+10 09 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB BASE0158 EQBASE 1>/dev/null 2>&1
+29 08 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaDIADOC.ksh 1> /tmp/pasaDIADOC.`date +\%Y\%m\%d`.log 2> /tmp/pasaDIADOC.`date +\%Y\%m\%d`.err
+#00 23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CREA830X EQBASE 1>/dev/null 2>&1
+01 00 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0170 EQBASE 1>/dev/null 2>&1
+03 00 * * * /swmango/scripts/EXPL/exe_PROGCOB BASE0171 EQBASE 1>/dev/null 2>&1
+03 03 * * * /swmango/scripts/EXPL/EQBASE/carga_tabla_2279.sh 1>/dev/null 2>&1
+06 08 * * * /swmango/scripts/EXPL/RCEXPLJVM BASE0190 >> /MNG/EXPL/LOGSCRON/BASE0190.log.`date +\%m` 2>>/MNG/EXPL/LOGSCRON/BASE0190.err.`date +\%m`
+#06 00 * * * /swmango/scripts/EXPL/RCEXPLJVM BASE0190 >> /MNG/EXPL/LOGSCRON/BASE0190.log.`date +\%m` 2>>/MNG/EXPL/LOGSCRON/BASE0190.err.`date +\%m`
+30 16 20 * * /swmango/scripts/EXPL/exe_PROGCOB BASE0175 EQBASE 1>/dev/null 2>&1
+02 06 * * * /swmango/scripts/EXPL/exe_PROGCOB VUELCA978 EQBASE 1>/dev/null 2>&1
+
+
+
+#############
+#### EQB ####
+#############
+
+58 19 * * 1-6 /swmango/scripts/EXPL/exe_PROGCOB TIEN4133 EQB 1>/dev/null 2>&1
+06,21,36,51 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5358 EQB 1>/dev/null 2>&1 # (793933)
+0 6 * * 2-6 /swmango/scripts/SISTEMA/INTRANET/pasaRESUMprodorainet.sh 1>/dev/null 2>&1
+0 08-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaORDER.sh 1>/dev/null 2>&1
+30 23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5455 EQB 1>/dev/null 2>&1
+06,21,36,51 * * * * /swmango/scripts/SISTEMA/FTP2/cogeJEVASOeqb.sh 1>/dev/null 2>&1
+07,22,37,52 * * * * /swmango/scripts/SISTEMA/pasaJEVASOeqb.sh 1>/dev/null 2>&1
+01,16,31,46 * * * * /swmango/scripts/SISTEMA/FTP2/traspasoJEVASO-FIEGE.sh 1>/dev/null 2>&1
+01,07,13,19,25,31,37,43,49,55 * * * * /swmango/scripts/SISTEMA/FTP2/pasaFIEGE.sh 1>/dev/null 2>&1
+02,08,14,20,26,32,38,44,50,56 * * * * /swmango/scripts/SISTEMA/FTP2/cogeFIEGE.sh 1>/dev/null 2>&1
+12,27,42,57 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6014 EQMOL 1>/dev/null 2>&1
+00 05,13 * * * /swmango/scripts/SISTEMA/FTP2/cogeJEVASOtsa.sh 1>/dev/null 2>&1
+# 5,10,15,20,25,30,35,40,45,50,55 6-20 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5564 EQBC 1>/dev/null 2>&1
+03,09,15,21,27,33,39,45,51,57 6-20 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5564 EQBC 1>/dev/null 2>&1
+07,22,37,52 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaSTOCKmangoshop.sh 1>/dev/null 2>&1
+45 19 * * 1-5 /swmango/scripts/SISTEMA/TRASPASOS_EQB/cogeAITEX.sh 1>/dev/null 2>&1
+00 23 * * 1-5 /swmango/scripts/SISTEMA/TRASPASOS_EQB/cogeAITEX2.sh 1>/dev/null 2>&1
+57 05 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5829 EQB B 1>/dev/null 2>&1
+46 19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5080 EQB 1>/dev/null 2>&1
+
+05 13 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3496 EQB
+57 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3496 EQB
+12,27,42,57 6-19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN430 EQB
+12,27,42,57 0,21,22,23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN430 EQB
+08,23,38,53 00-19,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3091 EQB
+09,39 00-19,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3133 EQB
+30 23 * * 1-4 /swmango/scripts/EXPL/exe_TIEN1065
+00 18 * * 2 /swmango/scripts/EXPL/exe_TIEN1065
+0 22 * * 0 /swmango/scripts/EXPL/exe_TIEN1065
+# 08 12 * * * /swmango/scripts/EXPL/exe_JTC1065B
+5 0 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1584 EQB
+5 2 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN1584 EQB
+0 1,12 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3507 EQB A
+0 0 * * 0,1,2,3,4,5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2492 EQB C
+0 2 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN2492 EQB C
+05 02 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3647 EQB
+02 00,09 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5631 EQB
+00 06 * * 6 /swmango/scripts/SISTEMA/runTIEN5824.sh 1>/dev/null 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /swmango/scripts/SISTEMA/FTP2/cogeZONA46.sh 1>/dev/null 2>&1
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/FTP2/pasaZONA46.sh 1>/dev/null 2>&1
+02,14,26,38,50 * * * * /swmango/scripts/SISTEMA/FTP2/pasaZONA53.sh 1>/dev/null 2>&1 
+02,14,26,38,50 * * * * /swmango/scripts/SISTEMA/pasaZONA66.sh 1>/dev/null 2>&1
+03,15,27,39,51 * * * * /swmango/scripts/SISTEMA/FTP2/cogeZONA53.sh 1>/dev/null 2>&1
+03,15,27,39,51 * * * * /swmango/scripts/SISTEMA/cogeZONA66.sh 1>/dev/null 2>&1
+00 18 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6022 EQB 1>/dev/null 2>&1
+00 04 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6107 EQB 1>/dev/null 2>&1
+45 00 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6766 EQB 1>/dev/null 2>&1
+00 12 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6860 EQB 02
+00 18 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6860 EQB 13 
+
+
+# Programa de generaciÃon de bultos
+01 19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6457 EQB 1>/dev/null 2>&1
+
+# El siguiente proceso ejecuta recogida de ficheros cogeMACOSXgraf.sh y TIEN3186
+11,41 09-19 * * 1-5 /swmango/scripts/EXPL/exe_TIEN3186
+02 00,03,06,09,12,15,18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5199 EQB 
+
+# Recogida ficheros Mejico de Weblogic
+10 03 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogePARTIDAS_MEJICO.sh 1>/dev/null 2>&1
+#15 06 * * * /swmango/scripts/SISTEMA/WEBLOGIC/pasaPARTIDAS_MEJICO.sh 1>/dev/null 2>&1
+#15 07 * * * /swmango/scripts/SISTEMA/WEBLOGIC/pasaPARTIDAS_MEJICO.sh 1>/dev/null 2>&1
+25 07 * * * /swmango/scripts/SISTEMA/WEBLOGIC/pasaPARTIDAS_MEJICO.sh 1>/dev/null 2>&1
+
+# Recogida ficheros MEDI de Weblogic
+10 06 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogeMEDI.sh 1>/dev/null 2>&1
+
+# Recogida ficheros MEDMS_TX de Weblogic
+10 06 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogeMEDMSTX.sh 1>/dev/null 2>&1
+
+# Recogida ficheros proyecto OPS (*.int)
+00 09,13,17 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogeOPS.sh 1>/dev/null 2>&1
+
+# Recogida ficheros proyecto Descripciones web
+00 19 * * 1-5 /swmango/scripts/SISTEMA/FTP2/cogeDESCRIPCIONES.sh 1>/dev/null 2>&1
+
+# Recogida y paso de ficheros medidas desde FVS
+00 09-19 * * * /swmango/scripts/SISTEMA/BALDUFA/cogeFVS-MEDIDAS.sh 1>/dev/null 2>&1
+00 19 * * * /swmango/scripts/SISTEMA/BALDUFA/cogeMEDIDAS-EQB.sh 1>/dev/null 2>&1
+
+####################################
+####### EQBC #######################
+####################################
+
+# 1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 6-19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1244 EQBC
+04,09,14,19,24,29,34,39,44,49,54,59 6-19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1244 EQBC
+# 04,14,24,34,44,54 * * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2729 EQBC
+04,16,28,40,52 * * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2729 EQBC
+00 15 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3958 EQBC
+03 06 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4707 EQBC
+00 12 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN6298 EQBC
+7,37 7-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN6792 EQBC
+00 08 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5706 EQBC 1>/dev/null 2>&1
+
+####################################
+####### EQBG #######################
+####################################
+
+#Peticion Mikel Viz (inc. 849748): TIEN5494, TIEN5481
+04,11,18,25,32,39,46,53 08-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5494 EQBG 1>/dev/null 2>&1
+04,19,34,49 08-19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5481 EQBG 1>/dev/null 2>&1
+
+#Peticion Xavier Ribera Sabate (inc. 849874)
+00,07,14,21,28,35,42,49,56 00-19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeTSA.sh 1>/dev/null 2>&1
+00,07,14,21,28,35,42,49,56 22-23 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeTSA.sh 1>/dev/null 2>&1
+00,07,14,21,28,35,42,49,56 * * * 6,0 /swmango/scripts/SISTEMA/INTRANET/cogeTSA.sh 1>/dev/null 2>&1
+
+#Peticion Martin Schinca (inc. 1044884)
+00 11 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN6040 EQBG 1>/dev/null 2>&1
+
+57 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4991 EQBG 1>/dev/null 2>&1
+02 01 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4992 EQBG 1>/dev/null 2>&1
+#00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4993 EQBG 1>/dev/null 2>&1
+#00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4994 EQBG 1>/dev/null 2>&1
+#00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4995 EQBG 1>/dev/null 2>&1
+#00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4996 EQBG 1>/dev/null 2>&1
+#00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4997 EQBG 1>/dev/null 2>&1
+05 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5048 EQT 1>/dev/null 2>&1
+30 05 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6760 EQT 1>/dev/null 2>&1
+05 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5293 EQG3 1>/dev/null 2>&1
+# 00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5426 EQG3 1>/dev/null 2>&1
+00 02 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5688 EQG3 1>/dev/null 2>&1
+
+00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN4991 EQBG 1>/dev/null 2>&1
+00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN4992 EQBG 1>/dev/null 2>&1
+# 00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN4993 EQBG 1>/dev/null 2>&1
+# 00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN4994 EQBG 1>/dev/null 2>&1
+# 0 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN4995 EQBG 1>/dev/null 2>&1
+# 00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN4996 EQBG 1>/dev/null 2>&1
+# 00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN4997 EQBG 1>/dev/null 2>&1
+00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5048 EQT 1>/dev/null 2>&1
+00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5293 EQG3 1>/dev/null 2>&1
+# 00 04 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5426 EQG3 1>/dev/null 2>&1
+00 02 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5688 EQG3 1>/dev/null 2>&1
+# 00 18 27 7 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5688 EQG3 1>/dev/null 2>&1
+
+# 00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5487 EQBG 1>/dev/null 2>&1
+# 00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5489 EQBG 1>/dev/null 2>&1
+# 00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5490 EQBG 1>/dev/null 2>&1
+# 00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5492 EQBG 1>/dev/null 2>&1
+# 00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5493 EQBG 1>/dev/null 2>&1
+# 00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5526 EQBG 1>/dev/null 2>&1
+00 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5903 EQBG 1>/dev/null 2>&1
+
+# 00 05 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5487 EQBG 1>/dev/null 2>&1
+# 00 05 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5489 EQBG 1>/dev/null 2>&1
+# 00 05 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5490 EQBG 1>/dev/null 2>&1
+# 00 05 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5492 EQBG 1>/dev/null 2>&1
+# 00 05 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5493 EQBG 1>/dev/null 2>&1
+# 00 05 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5526 EQBG 1>/dev/null 2>&1
+00 00 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5903 EQBG 1>/dev/null 2>&1
+
+# Procesos migrados del cron de root 23/04/2014
+0 8 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1870 EQBG
+##30 9-18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2085 EQBG
+30 4-18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2085 EQBG
+30 18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4196 EQBG
+20 07 * * 2-6 /swmango/scripts/EXPL/exe_PROGCOB TIEN4539 EQBG
+30 9,13,17 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1832 EQBG 1>/dev/null 2>&1
+45 23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1832 EQBG 1>/dev/null 2>&1
+45 23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5769 EQBG
+30 9,13,17 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5769 EQBG
+00 05 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5769 EQBG
+
+#############
+#### EQD ####
+#############
+
+09,24,39,54 3-5 * * 1-5 /swmango/scripts/SISTEMA/DWH/cogeDWH-PICOS.sh 1>/dev/null 2>&1
+31 19 * * 1-5 /swmango/scripts/SISTEMA/GESTOR/pasaWFLOW-FACAPP0101.sh 1>/dev/null 2>&1
+00 05 * * 1-5 /swmango/scripts/SISTEMA/DWH/pasaSITUALPAL-DWHCONS2.sh >/dev/null 2>&1
+30 04 * * 1-5 /swmango/scripts/SISTEMA/DWH/cogeCOMISIONESdwhcons.sh 1>>/tmp/cogeCOMISIONESdwhcons.sh 2>>/tmp/cogeCOMISIONESdwhcons.sh
+00,15,30 6 * * 1-5 /swmango/scripts/SISTEMA/DWH/cogeDWH-PICOS.sh 1>/dev/null 2>&1
+#30 07 * * * /swmango/scripts/SISTEMA/cogeGARANTI.sh 1>/dev/null 2>&1
+1 19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT0738 EQDGP 2>/dev/null
+#10 7-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONTVO EQDGP 2>/dev/null
+#10 7-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT0062 EQDGP 2>/dev/null
+#10 7-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT0138 EQDGP S 2>/dev/null
+30,35,40,45,50,55 6 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT1009 EQDGP 2>/dev/null
+00,05,10,15,20,25,30,35,40,45,50,55 7-18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT1009 EQDGP 2>/dev/null
+00,05,10,15,20,25,30 19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT1009 EQDGP 2>/dev/null
+00,10,20,30,40,50 * * * * /swmango/scripts/SISTEMA/DOCAPOST/cogeDOCAPOST.sh 1>/dev/null 2>&1
+01,11,21,31,41,51 * * * * /swmango/scripts/SISTEMA/DOCAPOST/cogeDOCAPOSTINREPORTS.sh 1>/dev/null 2>&1
+02,12,22,32,42,52 * * * * /swmango/scripts/SISTEMA/DOCAPOST/pasaDOCAPOST.sh 1>/dev/null 2>&1
+02 00 * * 1 /swmango/scripts/EXPL/exe_PROGCOB CONT1009 EQDGP 2>/dev/null 2>&1
+02,07,12,17,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/EXPL/exe_PROGCOB CONT1034 EQDGP 2>/dev/null 2>&1
+30,03 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6789 EQDGP 2>/dev/null
+00,23,00,09,13,15 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6789 EQDGP 2>/dev/null
+15 06 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/cogerdeCergRXECS.sh 2>/dev/null
+00 12 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/cogerdeCergRXECS.sh 2>/dev/null
+30-59 5 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/cogerdeCergfin.sh 1>>/tmp/cogerdeCergfin.`date +\%d` 2>>/tmp/cogerdeCergfin.err.`date +\%d`
+01,06,11,16,21,26,31,36,41,46,51,56 6 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/cogerdeCergfin.sh 1>>/tmp/cogerdeCergfin.`date +\%d` 2>>/tmp/cogerdeCergfin.err.`date +\%d`
+01,13,25,37,49 7-13 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/cogerdeCergfin.sh 1>>/tmp/cogerdeCergfin.`date +\%d` 2>>/tmp/cogerdeCergfin.err.`date +\%d`
+04,10,16,22,28,34,40,46,52,58 2-19 * * * /swmango/scripts/SISTEMA/BALDUFA/cogerdeMeta4.sh 1>/tmp/cogerdeMeta4.log.`date +\%d` 2>/tmp/cogerdeMeta4.err.`date +\%d`
+00,05,10,15,20,25,30,35,40,45,50,55 5-7 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaraMeta4.sh 2>/dev/null
+30 18 * * * /swmango/scripts/SISTEMA/BALDUFA/pasarTIEN4035aMETA4.sh 1>/dev/null 2>&1
+00 06 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasarPOTaFVS-META4.sh 1>/dev/null 2>&1
+0 2 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaCMPMeta4.sh
+00 03 * * * /swmango/scripts/SISTEMA/DWH/cogeDWHCONS-TIENDASTOP.sh expl >/dev/null 2>&1
+
+#############
+### EQG  ####
+#############
+
+#00 07 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4804 EQG TAI 1>/dev/null 2>&1
+00 02 * * 1 /swmango/scripts/EXPL/exe_PROGCOB TIEN4785 EQG N 1>/dev/null 2>&1
+# Temporal (Carles Perosanz) por incidencia (peti 681939.
+#* * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4413 EQG3 1>/dev/null 2>&1
+27 01,03,05,07,09,11,13,15,17,19,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5096 EQG 1>/dev/null 2>&1
+27 01,03,05,07,09,11,13,15,17,19,21,23 * * 6,0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5096 EQG 1>/dev/null 2>&1
+00 10,11,15,23 * * 0,1,2,3,4,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN5044 EQG V 1>/dev/null 2>&1
+00 10,11,15 * * 5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5044 EQG V 1>/dev/null 2>&1
+#Peticio Roger Guzman (884150)
+#2,5,8,11,14,17,20,23,26,29,32,35,38,41,44,47,50,53,56,59 * * * * /swmango/scripts/SISTEMA/pasaRAMPASmontcada.sh 1>/dev/null 2>&1
+00 20 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5378 EQG LIM 1>/dev/null 2>&1
+
+00 03 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5683 EQG 1>/dev/null 2>&1
+
+00 08 * * 1 /swmango/scripts/EXPL/exe_PROGCOB TIEN5815 EQG 1>/dev/null 2>&1
+
+00 01 * * 1 /swmango/scripts/EXPL/exe_PROGCOB TIEN4075 EQG
+30 01 * * *  /swmango/scripts/EXPL/exe_PROGCOB TIEN4277 EQG FN
+01 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4019 EQG
+
+#Peticion #1021518 - Luis Ballesteros Recio
+30 06 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5863 EQG
+
+03 00 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6021 EQG
+00 06 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6086 EQG
+#Peticion Joan Marc Espinosa
+00 05 * * 2-6 /swmango/scripts/EXPL/exe_PROGCOB TIEN6541 EQG
+#Peticion Fernando Gomez 
+00 13,18,19,23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN7044 EQG
+30 23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN7044 EQG
+
+##############
+#### EQG2 ####
+##############
+
+#TIEN5798
+30 05 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5798 EQG2 SLSRPT 1>/dev/null 2>&1
+
+#TIEN3865 - CALCULAR EL % DE TRANSMISIONES ACTUALIZADAS
+19,49 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3865 EQG2 A 1>/dev/null 2>&1
+
+#TI/TIEN3517 - CREAR FICHEROS PARA PASAR DATOS A INTRANET (TIEN573) [Tardon]
+# 00 01 * * * /swmango/scripts/EXPL/exe_TIEN3517_1 1>/dev/null 2>&1
+#20 02 * * 6 /swmango/scripts/EXPL/exe_TIEN3517_1 1>/dev/null 2>&1
+
+#TIEN474 - ELIMINA LOS TRASPASOS QUE SUMAN ZERO PRENDAS DEL FICH122
+59 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN474 EQG2 1>/dev/null 2>&1
+
+#TIEN3660 - BUSCAR LOS BULTOS EXPEDIDOS PARA GENERAR EL DOCUMENTO NIR DE ENVIO (RUMANIA)
+00 02 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3660 EQG2 1>/dev/null 2>&1
+
+#TIEN4023 - LIMPIEZA DEL FICHERO DE SALDOS DE REPOSICION (FICH1389)
+00 02 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4023 EQG2 1>/dev/null 2>&1
+
+#TIEN2400 - GRABAR DATOS DE LOS PEDIDOS FACTURADOS DE CHINA "COMPRAS" DE UNIVERSE
+00 03 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN2400 EQG2 1>/dev/null 2>&1
+
+#TIEN4217 - CONTROL DE POTAS PARA DARLAS DE BAJA PASADOS 15 DIAS DESDE EL FINAL DEL PERIODO
+00 03 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4217 EQG2 1>/dev/null 2>&1 
+
+#TIEN4626 - GENERAR VAT INVOICE DE ENVIOS PARA RUSIA
+# 00 23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4626 EQG2 AN 1>/dev/null 2>&1
+
+#TIEN4720 - ENVIAR REGISTROS DE DEVOLUCION DE COMISIONES GENERADOS EN DWH A TIENDAS
+00 06 * * 1-6 /swmango/scripts/SISTEMA/DWH/cogeDEV-COMIS.sh 1>/dev/null 2>&1
+00 16 * * 0 /swmango/scripts/SISTEMA/DWH/cogeDEV-COMIS.sh 1>/dev/null 2>&1
+00 06 * * 1-6 /swmango/scripts/SISTEMA/DWH/cogeTOP40.sh 1>/dev/null 2>&1
+00 16 * * 0 /swmango/scripts/SISTEMA/DWH/cogeTOP40.sh 1>/dev/null 2>&1
+
+# Modelos de T0 no facturados
+#TIEN4823 - EXCEL MODELOS DE TEMPORADA 0 DESCARTADOS PARA FACTURAR
+30 06 * * 1 /swmango/scripts/EXPL/exe_PROGCOB TIEN4823 EQG2 1>/dev/null 2>&1 
+
+#TIEN5472 - FACTURACION DEVOLUCIONES ONLINE
+30 06 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5472 EQG2 1>/dev/null 2>&1
+
+#TIEN4601 - Control para verificar que se facturan las ventas con la periodicidad correcta
+30 06 * * 2 /swmango/scripts/EXPL/exe_PROGCOB TIEN4601 EQG2 1>/dev/null 2>&1
+
+#TIEN3805 - ENVIAR POR MAIL LOS TRASPASOS DUPLICADOS EN EL FICH1338
+00 06 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3805 EQG2 1>/dev/null 2>&1
+
+#TIEN4164 - FACTURACION ENVIOS FILIALES UE
+30 06 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4164 EQG2 E 1>/dev/null 2>&1
+00 09 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4164 EQG2 F 1>/dev/null 2>&1
+
+#TIEN1439 - ENVIAR LOG CONTROL TRASPASOS INTERNACIONALES POR E-MAIL
+31 06 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1439 EQG2 1>/dev/null 2>&1
+
+#TIEN3249 - GRABAR CAMBIOS DE PRECIO PARA LAS TIENDAS PROPIAS DE RUMANIA
+00 07 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3249 EQG2 1>/dev/null 2>&1
+
+#TIEN2152 - EXCEL DE LAS VENTAS EFECTUADAS CON PRECIOS NO ACTUALES EN LAS TRANSMISIONES DE D
+00 07 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2152 EQG2 A 1>/dev/null 2>&1
+
+#TIEN2691 - PROCESO DE VERIFICACION DE DATOS DE LA FICHA DE CLIENTES (FICH003)
+00 07 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2691 EQG2 1>/dev/null 2>&1
+
+#TIEN943 - COMPROBAR CAMPOS DEL FICH003 (CLIENTES)
+06 07 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN943 EQG2 1>/dev/null 2>&1
+
+#TIEN4106 - CONTROLAR PARAMETROS DE FACTURACION POR EMPRESA / PAIS
+06 07 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4106 EQG2 1>/dev/null 2>&1
+
+#TIEN4241 - CONTROL DE TRANSMISIONES DE TRASPASOS Y CONFIRMACIONES CSV
+00 11 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN4241 EQG2 A 1>/dev/null 2>&1
+
+#TIEN2363 - PROCESO PARA ENVIAR EMAIL DE AVISO DE TIENDAS QUE NO HAN TRANSMITIDO EN MAS DE D
+30 11 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2363 EQG2 A 1>/dev/null 2>&1
+
+# Traspaso de ficheros filemaker
+#TIEN1883 - GRABAR DATOS DE FILEMAKER EN EL FICHERO DE CLIENTES FICH003
+01 11,13,17,18,19 * * 1-5 /swmango/scripts/SISTEMA/FILEMAKER/cogeCLIENTESfilemaker.sh 1>/dev/null 2>&1
+
+#Paso ficheros entre sistemas
+#TIEN2442 - PROCESAR FICH333 PROCEDENTE DE JEVASO PARA CONFIRMAR LOS TRASPASOS
+30 06 * * 1-5 /swmango/scripts/SISTEMA/FTP2/cogeJEVASOeqg2.sh 1>/dev/null 2>/dev/null
+00 01 * * 1-5 /swmango/scripts/SISTEMA/FTP2/cogeJEVASOeqg2.sh 1>/dev/null 2>/dev/null
+00 02,11,15,19 * * 1-5 /swmango/scripts/SISTEMA/FTP2/pasaJEVASOeqg2.sh 1>/dev/null 2>/dev/null
+05,17,29,41,53 * * * * /swmango/scripts/SISTEMA/FTP2/pasaJEVASOonline.sh 1>/dev/null 2>/dev/null
+
+#TIEN1318 - ENVIO FACTURAS DE UDT A LOS NODOS DE LAS TIENDAS
+09,24,39,54 0-19,22-23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1318 EQG2 1>/dev/null 2>&1
+
+#TIEN1144 - LISTADO INCIDENCIAS EN TRANSMISIONES
+00 02,09 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1144 EQG2 A 1>/dev/null 2>&1
+#30 02,09 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN1144 EQG2 A 1>/dev/null 2>&1
+
+#TIEN782 - GENERACION COMUN FICHEROS DE TRANSMISIONES
+45 00-02 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000A 1>/dev/null 2>&1
+45 06-18 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000A 1>/dev/null 2>&1
+45 22-23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000A 1>/dev/null 2>&1
+
+45 00-02 * * 0,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000A 1>/dev/null 2>&1
+45 06-23 * * 0,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000A 1>/dev/null 2>&1
+#### 45 06-21 * * 0,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000A 1>/dev/null 2>&1
+
+45 03-05 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000Z 1>/dev/null 2>&1
+30 19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN782 EQG2 00000000Z 1>/dev/null 2>&1
+
+#Cierre Comercial. Se ejecuta el dia 1 entre los meses Febrero - Diciembre
+#TIEN1051 - CIERRE DEL MES COMERCIAL AUTOMATICO
+1 0 1 2-12 * /swmango/scripts/EXPL/exe_TIEN1051a 1>/dev/null 2>&1
+1 2 1 2-12 * /swmango/scripts/EXPL/exe_TIEN1051b 1>/dev/null 2>&1
+
+#Se ejecuta el dia 1 de cada mes
+#TIEN3317 - GENERAR LOG DE MODELOS DOBLES/BASE EN VENTAS AL MAYOR DE RUSIA
+00 07 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3317 EQG2 1>/dev/null 2>&1
+
+#Se ejecuta el dia 1 y 16 de cada mes
+#TIEN2932 - MARCAR TIENDAS PARA FACTURAR COMPENSACION AUTOMATICA DEVOLUCIONES
+15 03 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN2932 EQG2 A000 1>/dev/null 2>&1
+15 03 17 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN2932 EQG2 A001 1>/dev/null 2>&1
+
+
+#Se ejecuta el dia 1 y 16 de cada mes
+#TI2669 - FACTURACION ESPECIAL DE LA REPERCUSION DEL ESCAPARATE
+0 7 1,16 * * /swmango/scripts/EXPL/exe_PROGCOB TI2669 EQG2 AE 1>/dev/null 2>&1
+0 7 1,16 * * /swmango/scripts/EXPL/exe_PROGCOB TI2669 EQG2 AB 1>/dev/null 2>&1
+
+#TIEN4202 - FACTURACION DEVOLUCIONES FILIALES UE
+10 07 1,16 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4202 EQG2 D 1>/dev/null 2>&1
+10 08 1,16 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4202 EQG2 F 1>/dev/null 2>&1
+
+#Se ejecuta el dia 2 de cada mes
+#TIEN2193 - PROGRAMA QUE LISTA EL CONTENIDO DEL LOG QUE SE GENERA EL TIEN453
+45 6 2 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN2193 EQG2 A 1>/dev/null 2>&1
+
+#Se ejecuta el dia 15 de cada mes
+#TIEN4315 - INFORME CON REFERENCIAS FACTURADAS A FILIALES CON PRECIO CERO
+00 07 15 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4315 EQG2 P 1>/dev/null 2>&1
+01 07 15 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4315 EQG2 T 1>/dev/null 2>&1
+
+#Se ejecuta el dia 15 de Diciembre
+#TIEN3403 - PASAR A HISTORICO LOS REGISTROS DE FACTURACION DE EQG2
+00 07 15 12 * /swmango/scripts/EXPL/exe_PROGCOB TIEN3403 EQG2 A0000 1>/dev/null 2>&1
+
+#Se ejecuta el dia 15 de Diciembre
+#TIEN5484 - PASAR A HISTORICO LOS REGISTROS DE FACTURACION DEL FICH1509
+00 07 15 12 * /swmango/scripts/EXPL/exe_PROGCOB TIEN5484 EQG2 A0000 1>/dev/null 2>&1
+
+#Se ejecuta el dia 16 de Diciembre
+#TIEN3509 - PASAR A HISTORICO LOS REGISTROS DE LOS FICHEROS FICH562 Y FICH563
+#00 07 16 12 * /swmango/scripts/EXPL/exe_PROGCOB TIEN3509 EQG2 AD0000 1>/dev/null 2>&1
+#00 07 16 12 * /swmango/scripts/EXPL/exe_PROGCOB TIEN3509 EQG2 AP0000 1>/dev/null 2>&1
+
+#Se ejecuta el dia 17 de Diciembre
+#TIEN3539 - PASAR A HISTORICOS REGISTROS DEL FICH797 (CONTROL SECUENCIA NUMERACION)
+# 00 07 17 12 * /swmango/scripts/EXPL/exe_PROGCOB TIEN3539 EQG2 A0000 1>/dev/null 2>&1
+
+#TIEN5179 - RELACIONAR MODELOS SIN GRUPO DE FACTURACION PARA CHINA
+00 06 * * 3 /swmango/scripts/EXPL/exe_PROGCOB TIEN5179 EQG2 1>/dev/null 2>&1
+#TIEN3409 - LANZADOR DE FACTURACION ESPECIAL (EGIPTO)
+# 00 09 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3409 EQG2 CDA 1>/dev/null 2>&1
+30 06 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3409 EQG2 "P A" 1>/dev/null 2>&1
+
+## Descatalogados EQG2, mantener aun estando comentados!!!!
+#00 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3566 EQG2 00000000
+#30 09,13,17 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3752 EQG2 INTRA
+#00 23 * * 0,1,2,3,4,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN3752 EQG2 1013H
+#00 23 * * 0,1,2,3,4,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN3752 EQG2 1014H
+#00 23 * * 0,1,2,3,4,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN3752 EQG2 1015H
+#00 23 * * 0,1,2,3,4,6 /swmango/scripts/EXPL/exe_PROGCOB TIEN3752 EQG2 1005H
+#00 07 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3503 EQG2 1>/dev/null 2>&1
+
+#TIEN5402 - GENERACION DE EXCEL EXPEDICIONES Y DESADV
+30 12 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5402 EQG2 1>/dev/null 2>&1
+
+# Recoger ficheros de log para su control
+#05 06 * * 1-5 /swmango/scripts/EQUIPOS/EQG2/LOGS.SH 1>/dev/null 2>&1
+
+00 07-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB _COLGADOS EQG2 1>/dev/null 2>&1
+20 06-18 * * 1-5 /swmango/scripts/EXPL/EQG2/VER.782 1>/dev/null 2>&1
+00 06 * * * /swmango/scripts/EXPL/exe_PROGCOB _CUADCAJ EQG2 01 1>/dev/null 2>&1
+10 06 * * * /swmango/scripts/EXPL/exe_PROGCOB EXT-CUADREP EQG2 1>/dev/null 2>&1
+
+01 12 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN2028 EQG2 A 1>/dev/null 2>&1 
+
+##############
+#### EQG3 ####
+##############
+
+13,28,43,58 7-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1190 EQT O 1>/dev/null 2>&1
+05 16,18 * * 1-4 /swmango/scripts/EXPL/exe_PROGCOB TIEN1190 EQT K 1>/dev/null 2>&1
+55 12,13 * * 5 /swmango/scripts/EXPL/exe_PROGCOB TIEN1190 EQT K 1>/dev/null 2>&1
+30 00,02,04,06,08,10,12,14,16,18,20,22 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4351 EQMOL 1>/dev/null 2>&1
+27 04 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4719 EQT 1>/dev/null 2>&1
+12,42 09-18 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4719 EQT 1>/dev/null 2>&1
+05 19 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4719 EQT 1>/dev/null 2>&1
+05 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4361 EQG B 1>/dev/null 2>/dev/null
+15 * * * * /swmango/scripts/EXPL/exe_TIEN4497  1>/dev/null 2>/dev/null
+01,16,31,46 * * * * /swmango/scripts/EXPL/exe_TIEN4486  1>/dev/null 2>/dev/null
+05 04 * * 1-5 /swmango/scripts/EXPL/exe_TIEN4467_TIEN4587.sh 1>/dev/null 2>&1
+00 03 * * 1-5 /swmango/scripts/SISTEMA/DWH/mover-ficheroCIQ.sh 1>/dev/null 2>&1
+02 * * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN3769 EQB 1>/dev/null 2>&1
+# 05,10,15,20,25,30,35,45,55 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4581 EQMOL 1>/dev/null 2>&1
+06,18,30,42,54 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4581 EQMOL 1>/dev/null 2>&1
+30 15 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4736 EQMOL 1>/dev/null 2>&1
+#00 00 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5147 EQMOL 1>/dev/null 2>&1
+#00 1,13 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN3830_USA EQMOL U 1>/dev/null 2>&1
+00 23 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5137 EQB 1>/dev/null 2>&1
+05 00 * * 0 /swmango/scripts/EXPL/exe_PROGCOB TIEN5137 EQB 1>/dev/null 2>&1
+30 01 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN5137 EQB 1>/dev/null 2>&1
+# 06,16,26,36,46,56 * * * * /swmango/scripts/SISTEMA/EYEFREIGHT/pasaEYEFREIGHT.sh 1>/dev/null 2>&1
+07,19,31,43,55 * * * * /swmango/scripts/SISTEMA/EYEFREIGHT/pasaEYEFREIGHT.sh 1>/dev/null 2>&1
+# 5,15,25,35,45,55 * * * * /swmango/scripts/SISTEMA/EYEFREIGHT/cogeEYEFREIGHT.sh 1>/dev/null 2>&1
+08,20,32,44,56 * * * * /swmango/scripts/SISTEMA/EYEFREIGHT/cogeEYEFREIGHT.sh 1>/dev/null 2>&1
+13 * * * * /swmango/scripts/SISTEMA/EYEFREIGHT/cogeEYEFREIGHTxml.sh 1>/dev/null 2>&1
+00 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5288 EQMOL 1>/dev/null 2>&1
+05 12 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4944 EQB 1>/dev/null 2>&1
+35 00 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5223 EQT P 1>/dev/null 2>&1
+13,43 7-19 * * 1-5 /swmango/scripts/SISTEMA/SCM/coge_tiempos_transito.sh 1>/dev/null 2>&1
+30 19 * * 1-5 /swmango/scripts/SISTEMA/SCM/pasaMODELO_COLOR.sh 1>/dev/null 2>&1
+00 02 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5368 EQMOL 1>/dev/null 2>&1
+50 15 * * * /swmango/scripts/EXPL/exe_PROGCOB HIST0006 EQB 1>/dev/null 2>&1
+05 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5413 EQT NB 1>/dev/null 2>&1
+05 02 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5310 EQT 1>/dev/null 2>&1
+02 04 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5555 EQB 0 1>/dev/null 2>&1
+#* * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5582 EQMOL R 1>/dev/null 2>&1
+###* * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5582 EQMOL E 1>/dev/null 2>&1
+1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5582 EQMOL E 1>/dev/null 2>&1
+#####* * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5582 EQMOL E 1>/dev/null 2>&1
+57 00 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5654 EQMOL 1>/dev/null 2>&1
+#30 23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5246 EQMOL 1>/dev/null 2>&1
+57 12 * * 2 /swmango/scripts/EXPL/exe_PROGCOB TIEN5704 EQB 1>/dev/null 2>&1
+
+
+#####################
+#### EQH-FABRICA ####
+#####################
+
+10 2-20 * * * /swmango/scripts/SISTEMA/SCM/cogeM2.sh 1>/dev/null 2>&1
+# 0,5,10,15,20,25,30,35,40,45,50,55 6-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB PFSY055 EQH 1>/dev/null 2>&1
+# 07,17,27,37,47,57 6-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB PFSY055 EQH 1>/dev/null 2>&1
+09,21,33,45,57 6-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB PFSY055 EQH 1>/dev/null 2>&1
+10,25,40,55 6-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB PFSY095 EQH 1>/dev/null 2>&1
+30 6-19 * * * /swmango/scripts/EXPL/exe_PROGCOB PFSY088 EQH 1>/dev/null 2>&1
+0 2 * * 0-5 /swmango/scripts/EXPL/exe_PROGCOB PFSY080 EQH 1>/dev/null 2>&1
+30 2 * * 6 /swmango/scripts/EXPL/exe_PROGCOB PFSY080 EQH 1>/dev/null 2>&1
+0 2 * * 0-5 /swmango/scripts/EXPL/exe_PROGCOB PFSY090 EQH 1>/dev/null 2>&1
+30 2 * * 6 /swmango/scripts/EXPL/exe_PROGCOB PFSY090 EQH 1>/dev/null 2>&1
+# 08,18,28,38,48,58 2-19 * * * /swmango/scripts/EXPL/exe_PROGCOB PFSY075 EQH 1>/dev/null 2>&1
+10,22,34,46,58 2-19 * * * /swmango/scripts/EXPL/exe_PROGCOB PFSY075 EQH 1>/dev/null 2>&1
+01 23 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogePRECIOS_ETIQ.sh 1>/dev/null 2>&1
+
+#############
+#### EQJ ####
+#############
+
+
+6 7 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN942 EQJ
+00 23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6757 EQJ
+00 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6878 EQJ
+00 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6858 EQJ
+
+#Se ejecuta el dia 1 de cada mes
+30 13 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN230 EQJ AA
+35 13 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN230 EQJ AD
+00 18 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1293 EQJ A
+00 18 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN1283 EQJ A
+40 13 1 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN230 EQJ AL
+
+#############
+### EQMOL ###
+#############
+
+#00 1,4,7,10,13,16,19,22 * * *  /swmango/scripts/EXPL/exe_PROGCOB TIEN4778 EQMOL 1>/dev/null 2>&1 # (575695)
+57 00,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN4778 EQMOL 1>/dev/null 2>&1 # (575695)
+09,19,29,39,49,59 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN604 EQMOL
+01,16,31,46 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5485 EQMOL 1>/dev/null 2>&1
+35 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5486 EQMOL 1>/dev/null 2>&1
+#00 07 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5068 EQMOL M
+04,9,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/FTP2/cogeJEVASOonline.sh 1>/dev/null 2>/dev/null
+00 15 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5877 EQMOL 2000X 1>/dev/null 2>&1
+30 17 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5877 EQMOL 0336X 1>/dev/null 2>&1
+30 18 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5877 EQMOL 0614X 1>/dev/null 2>&1
+32 18 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5877 EQMOL 0671X 1>/dev/null 2>&1
+00 08 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5877 EQMOL 0686X 1>/dev/null 2>&1
+31 12 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5877 EQMOL 3011X 1>/dev/null 2>&1
+03,18,33,48 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6189 EQMOL 1>/dev/null 2>&1
+03 10 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6308 EQMOL 1>/dev/null 2>&1
+06 10 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6322 EQMOL 1>/dev/null 2>&1
+08 10 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6357 EQMOL 1>/dev/null 2>&1
+14,29,44,59 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6444 EQMOL 1>/dev/null 2>&1
+00 00,03,09,12,15,18,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN6407 EQMOL 1>/dev/null 2>&1
+05 00,03,09,12,15,18,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN6408 EQMOL 1>/dev/null 2>&1
+45 00,03,09,12,15,18,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN6409 EQMOL 1>/dev/null 2>&1
+00 09 16 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6410 EQMOL 0 1>/dev/null 2>&1
+#06,16,26,36,46,56 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6521 EQMOL 1>/dev/null 2>&1
+01,31 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6521 EQMOL 1>/dev/null 2>&1
+10,40 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6533 EQMOL 1>/dev/null 2>&1
+#02,12,22,32,42,52 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6536 EQMOL 1>/dev/null 2>&1
+02 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6536 EQMOL 1>/dev/null 2>&1
+04,14,24,34,44,54 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6537 EQMOL 1>/dev/null 2>&1
+05,15,25,35,45,55 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6538 EQMOL 1>/dev/null 2>&1
+15 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6362 EQMOL 1>/dev/null 2>&1
+03,18,33,48 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6703 EQMOL 1>/dev/null 2>&1
+00 08 * * 6 /swmango/scripts/EXPL/exe_PROGCOB TIEN6793 EQMOL 1>/dev/null 2>&1 
+02,17,32,47 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6918 EQMOL 1>/dev/null 2>&1
+00 01 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6635 EQMOL Z 1>/dev/null 2>&1
+04 00,02,04,06,08,10,12,14,16,18,20 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6919 EQMOL 1>/dev/null 2>&1
+00 04 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6648 EQMOL 1>/dev/null 2>&1
+00 05 1-15 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6872 EQMOL A 1>/dev/null 2>&1 
+00 05 1-15 * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6871 EQMOL A 1>/dev/null 2>&1
+00 * * * 1-5 /swmango/scripts/SISTEMA/FTP2/cogeTSB.sh 1>/dev/null 2>&1
+30 02 * * * /swmango/scripts/SISTEMA/FTP2/pasaEXPNOUE.sh 1>/dev/null 2>&1
+00 * * * 1-5 /swmango/scripts/SISTEMA/FTP2/cogeTSB9697.sh 1>/dev/null 2>&1
+03 * * * 1-5 /swmango/scripts/SISTEMA/FTP2/pasaTSB.sh 1>/dev/null 2>&1
+03 * * * 1-5 /swmango/scripts/SISTEMA/FTP2/pasaTSB9697.sh 1>/dev/null 2>&1
+03 * * * 1-5 /swmango/scripts/SISTEMA/FTP2/pasaTSB_INVOICES.sh 1>/dev/null 2>&1
+02,12,22,32,42,52 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaMNG_SHOP_KOREA.sh 1>/dev/null 2>&1
+02,12,22,32,42,52 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeMNG_SHOP_KOREA.sh 1>/dev/null 2>&1
+05 00,03,06,09,12,15,18,21 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6856 EQMOL 1>/dev/null 2>&1
+06,16,26,36,46,56 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6957 EQMOL 1>/dev/null 2>&1
+02,14,26,38,50 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN5984 EQMOL
+03,15,27,39,51 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6220 EQMOL 1>/dev/null 2>&1
+
+
+#############
+#### EQT ####
+#############
+
+35 19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5835 EQT 1>/dev/null 2>&1
+
+# 00,05,10,15,20,25,30,35,40,45,50,55 06-19 * * 1-5 /swmango/scripts/EXPL/exe_TIEN3332
+04,10,16,22,28,34,40,46,52,58 06-19 * * 1-5 /swmango/scripts/EXPL/exe_TIEN3332
+57 01 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN2690 EQT
+15 0,4,8,12,16,19,23 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB TIEN5482 EQT
+05 23 * * * /swmango/scripts/EXPL/lanza_5888_4626.sh 1>/dev/null 2>&1
+00 08 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6452 EQT
+00 04 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6539 EQT
+00 00 * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6806 EQT
+30 04 * * * /swmango/scripts/EXPL/exe_PROGCOB TFOCDUA EQT
+00 * * * * /swmango/scripts/EXPL/exe_PROGCOB TIEN6796 EQT C 1>/dev/null 2>&1 
+
+###################
+#### TRASPASOS ####
+###################
+
+00 * * * * /swmango/scripts/SISTEMA/GESTOR/pasaXLS-workflow.sh 1>/dev/null 2>&1
+05,11,17,23,29,35,41,47,53,59 0-19 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaMACOSXfilemaker.sh 1>>/tmp/pasaMACOSXfilemaker.log.`date +\%d` 2>>/tmp/pasaMACOSXfilemaker.err.`date +\%d`
+0 8-9 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/coger_bbvavir.sh 1>/dev/null 2>/dev/null
+00,06,12,18,24,30,36,42,48,54 0-19 * * * /swmango/scripts/SISTEMA/FILEMAKER/cogeCAT_GRAF.sh 1>/dev/null 2>&1
+10,25,40,55 0-19 * * * /swmango/scripts/SISTEMA/BALDUFA/cogeMACOSXmodelos.sh 1>>/tmp/cogeMACOSXmodelos.log.`date +\%d` 2>>/tmp/cogeMACOSXmodelos.err.`date +\%d`
+11,26,41,56 0-19 * * * /swmango/scripts/SISTEMA/BALDUFA/cogeMACOSXext_prp.sh 1>>/tmp/cogeMACOSXext_prp.log.`date +\%d` 2>>/tmp/cogeMACOSXext_prp.err.`date +\%d`
+00 7 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/datos_belgica.sh 1>/dev/null 2>/dev/null
+#Se desactiva el script pasaMANGOSHOP (inc 850014)
+00 8 * * 1-5 /swmango/scripts/SISTEMA/MANGOSHOP/pasaMANGOSHOP.sh 1>>/tmp/pasaMANGOSHOP.log.`date +\%d` 2>>/tmp/pasaMANGOSHOP.err.`date +\%d`
+01,07,13,19,25,31,37,43,49,55 0-19 * * * /swmango/scripts/SISTEMA/FTP2/pasaM28dhl.sh 1>>/tmp/pasaM28dhl.log.`date +\%d` 2>>/tmp/pasaM28dhl.err.`date +\%d`
+0 7-15 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaPRVmacosx.sh 1>>/tmp/pasaPRVmacosx.log.`date +\%d` 2>>/tmp/pasaPRVmacosx.err.`date +\%d`
+15 11 * * 1-5 /swmango/scripts/SISTEMA/FTP2/pasaCOMENSALESaramark.sh 1>>/tmp/pasaCOMENSALESaramark.log.`date +\%d` 2>>/tmp/pasaCOMENSALESaramark.err.`date +\%d`
+0 9,13,17 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogePEXTRAprodorainet.sh 1>>/tmp/cogePEXTRAprodorainet.log.`date +\%d` 2>>/tmp/cogePEXTRAprodorainet.err.`date +\%d`
+30 23 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogePEXTRAprodorainet.sh 1>>/tmp/cogePEXTRAprodorainet.log.`date +\%d` 2>>/tmp/cogePEXTRAprodorainet.err.`date +\%d`
+30 10,14,18 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaPEXTRAprodorainet.sh 1>>/tmp/pasaPEXTRAprodorainet.log.`date +\%d` 2>>/tmp/pasaPEXTRAprodorainet.err.`date +\%d`
+0 6 * * * /swmango/scripts/SISTEMA/INTRANET/pasaSTATUSprodorainet.sh 1>>/tmp/pasaSTATUSprodorainet.log.`date +\%d` 2>>/tmp/pasaSTATUSprodorainet.err.`date +\%d` 
+0 8 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaPEXTRAprodorainet2.sh 1>>/tmp/pasaPEXTRAprodorainet2.log.`date +\%d` 2>>/tmp/pasaPEXTRAprodorainet2.err.`date +\%d`
+45 9,13,17 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaUNIFORMESprodorainet.sh 1>>/tmp/pasaUNIFORMESprodorainet.log.`date +\%d` 2>>/tmp/pasaUNIFORMESprodorainet.err.`date +\%d`
+15 9,13,17 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeUNIFORMESprodorainet.sh 1>>/tmp/cogeUNIFORMESprodorainet.log.`date +\%d` 2>>/tmp/cogeUNIFORMESprodorainet.err.`date +\%d`
+55 7 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaDESBLOQUEOSprodorainet.sh 1>>/tmp/pasaDESBLOQUEOSprodorainet.log.`date +\%d` 2>>/tmp/pasaDESBLOQUEOSprodorainet.err.`date +\%d`
+14,44 6-19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeGASTOSprodorainet.sh 1>>/tmp/cogeGASTOSprodorainet.log.`date +\%d` 2>>/tmp/cogeGASTOSprodorainet.err.`date +\%d`
+45 6 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaGASTOSprodorainet.sh 1>>/tmp/pasaGASTOSprodorainet.log.`date +\%d` 2>>/tmp/pasaGASTOSprodorainet.err.`date +\%d`
+00 08 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaSHOWVIRprodorainet.sh 1>/dev/null 2>/dev/null
+00 08,13 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeSHOWVIRprodorainet.sh 1>/dev/null 2>/dev/null
+45 17 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogeSHOWVIRprodorainet.sh 1>/dev/null 2>/dev/null
+#0 6 * * 1-5 /swmango/scripts/SISTEMA/cogeFZ-MANGOalemania.sh 1>>/tmp/cogeFZ-MANGOalemania.log.`date +\%d` 2>>/tmp/cogeFZ-MANGOalemania.err.`date +\%d`
+#0 8 * * 1-5 /swmango/scripts/SISTEMA/cogeFZ-MANGOportugal.sh 1>>/tmp/cogeFZ-MANGOportugal.log.`date +\%d` 2>>/tmp/cogeFZ-MANGOportugal.err.`date +\%d`
+0 8 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaGASTOSprodorainet2.sh 1>>/tmp/pasaGASTOSprodorainet2.log.`date +\%d` 2>>/tmp/pasaGASTOSprodorainet2.err.`date +\%d`
+#0 7 * * * /swmango/scripts/SISTEMA/pasaCML-HISTfsr0101.sh 1>>/tmp/pasaCML-HISTfsr0101.log.`date +\%d` 2>>/tmp/pasaCML-HISTfsr0101.err.`date +\%d`
+15 7 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaGTT-HISTfsr0101.sh 1>>/tmp/pasaGTT-HISTfsr0101.log.`date +\%d` 2>>/tmp/pasaGTT-HISTfsr0101.err.`date +\%d`
+05 7-19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/traspasoFORMPERSONALprodorainet.sh 1>>/tmp/traspasoFORMPERSONALprodorainet.log.`date +\%d` 2>>/tmp/traspasoFORMPERSONALprodorainet.err.`date +\%d`
+50 23 * * 1-4 /swmango/scripts/SISTEMA/INTRANET/traspasosGENTMPCONTRELprodorainet.sh 1>>/tmp/traspasosGENTMPCONTRELprodorainet.log.`date +\%d` 2>>/tmp/traspasoGENTMPCONTRELprodorainet.err.`date +\%d`
+00 3 * * 6 /swmango/scripts/SISTEMA/INTRANET/traspasosGENTMPCONTRELprodorainet.sh 1>>/tmp/traspasosGENTMPCONTRELprodorainet.log.`date +\%d` 2>>/tmp/traspasoGENTMPCONTRELprodorainet.err.`date +\%d`
+0 6-19 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaENX.sh
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeTDVIRTUALtsystems.sh 1>/dev/null 2>&1
+# 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeTDVIRTUALtsystems-PEDPAL.sh 1>>/tmp/cogeTDVIRTUALtsystems-PEDPAL.sh.`date +\%Y\%m\%d`.log 2>>/tmp/cogeTDVIRTUALtsystems-PEDPAL.sh.`date +\%Y\%m\%d`.err
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeTDVIRTUALtsystems-PEDPAL-ZIP.sh 1>>/HISTCBL/LOGS_ZENON/FTP-PEDPAL/cogeTDVIRTUALtsystems-PEDPAL.sh.`date +\%Y\%m\%d`.log 2>>/HISTCBL/LOGS_ZENON/FTP-PEDPAL/cogeTDVIRTUALtsystems-PEDPAL.sh.`date +\%Y\%m\%d`.err
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeTDVIRTUAL-OUTLETtsystems.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUAL-OUTLETtsystems1.sh 1>/dev/null 2>&1
+00,12,24,36,48 * * * * /swmango/scripts/SISTEMA/BALDUFA/pasaTACHI-a-fvs.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUAL-OUTLETtsystems2.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUAL-OUTLETtsystems3.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUAL-OUTLETtsystems4.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUAL-OUTLETtsystems5.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUAL-OUTLETtsystems6.sh 1>/dev/null 2>&1
+1,6,11,16,21,26,31,36,41,46,51,56 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaFICH_OUT_PAL.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems1.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems2.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems3.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems4.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems5.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems6.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems7.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems11.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems13.sh 1>/dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaSHOPTURQUIA.sh 1>/dev/null 2>&1
+# 3,13,23,33,43,53 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeTDVIRTUALfiege.sh 1>/dev/null 2>&1
+04,10,16,22,28,34,40,46,52,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeTDVIRTUALfiege.sh 1>/dev/null 2>&1
+# 3,13,23,33,43,53 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALfiege.sh 1>/dev/null 2>&1
+05,11,17,23,29,35,41,47,53,59 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALfiege.sh 1>/dev/null 2>&1
+30 7 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems8.sh 1>/dev/null 2>&1 
+30 00,02,04,06,08,10,12,14,16,18,22 * * 1-4 /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems9.sh 1>/dev/null 2>&1 
+30 02,04,06,08,10,12,14,16,18,20,22 * * 5 /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems9.sh 1>/dev/null 2>&1 
+30 00,02,04,06,08,10,12,14,16,18,20,22 * * 0,6 /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems9.sh 1>/dev/null 2>&1 
+0 6 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems10.sh 1>/dev/null 2>&1
+00 17 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTDVIRTUALtsystems12.sh 1>/dev/null 2>&1
+30 7,10,13,16 * * 1-5 /swmango/scripts/SISTEMA/MANGOSHOP/cogeTDVIRTUALimagenes.sh 1>/dev/null 2>&1
+00 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/coge-pasaVENTASmangoshop.sh 1>/dev/null 2>&1
+#00 06 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaRANKING.sh 1>/dev/null 2>&1
+30 06 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaRANKING.sh 1>/dev/null 2>&1
+###0 6-18 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogePART_MEJprodorainet.sh 1>/dev/null 2>&1
+15 4 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogePART_MEJprodorainet.sh 1>/dev/null 2>&1
+02,08,14,20,26,32,38,44,50,56 8-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/traspasoCOLECCIONESfilemaker.sh 1>/dev/null 2>&1
+11,26,41,56 6-19 * * 1-5  /swmango/scripts/SISTEMA/BALDUFA/cogeMACOSXselprod.sh 1>/dev/null 2>&1
+03 9 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaMACOSX1.sh 1>/dev/null 2>/dev/null
+04 9 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaaMACOSX.sh 1>/dev/null 2>/dev/null
+30 15 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaBloqueosTransito.sh 1>/dev/null 2>&1
+# 3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaOUTLETTURQUIA.sh 1>/dev/null 2>&1
+03,09,15,21,27,33,39,45,51,57 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaOUTLETTURQUIA.sh 1>/dev/null 2>&1
+# 3,8,13,18,23,28,33,38,43,48,53,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeOUTLETTURQUIA.sh 1>/dev/null 2>&1
+04,10,16,22,28,34,40,46,52,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeOUTLETTURQUIA.sh 1>/dev/null 2>&1
+00 15 * * 1-5 /swmango/scripts/SISTEMA/EYEFREIGHT/moverTAeyfreight.sh 1>/dev/null 2>&1
+30 18 * * 1-5 /swmango/scripts/SISTEMA/EYEFREIGHT/moverTAeyfreight.sh 1>/dev/null 2>&1
+08 7-19 * * 1-5 /swmango/scripts/SISTEMA/WEBLOGIC/cogeSDP.sh 1>/dev/null 2>&1
+
+# Comentat a peticio de desenvolupament
+# 14,29,44,59 11,12,13 * * * /swmango/scripts/SISTEMA/footfall.sh 1>/dev/null 2>&1
+
+0 1-6 * * * /swmango/scripts/SISTEMA/BALDUFA/traspas_DGPIE4.sh 1>/dev/null 2>&1
+0 7 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/traspas_GPVI.sh 1>/dev/null 2>&1
+0 7-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaIDPRODfilemaker.sh 1>/dev/null 2>&1
+05,11,17,23,29,35,41,47,53,59 6-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/traspasoCOMPRASfilemaker.sh 1>/dev/null 2>&1
+01,16,31,46 7-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaCABDETmacosxinet.sh 1>/dev/null 2>&1
+02,17,32,47 7-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaCABMODmacosxinet.sh 1>/dev/null 2>&1
+02,17,32,47 7-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaFICH277macosxinet.sh 1>/dev/null 2>&1
+03,18,33,48 7-19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaSTOCKSoracleinet.sh 1>/dev/null 2>&1
+03,18,33,48 7-19 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaKSKmacosx.sh 1>/dev/null 2>&1
+04,19,34,49 7-19 * * 1-5 /swmango/scripts/SISTEMA/MANGOSHOP/pasaPROtsystems.sh 1>/dev/null 2>&1
+0 7 * * 1-5 /swmango/scripts/SISTEMA/DWH/cogeVTA27dwhcons.sh 1>/dev/null 2>&1
+#  30 00 * * 1-4 /swmango/scripts/SISTEMA/traspas_DGPIE4B.sh 1>/dev/null 2>&1
+#  30 02 * * 5 /swmango/scripts/SISTEMA/traspas_DGPIE4B.sh 1>/dev/null 2>&1
+11,23,35,47,59 * * * * /swmango/scripts/SISTEMA/FTP2/traspasoJEVASOeqb.sh 1>/dev/null 2>&1
+0 * * * * /swmango/scripts/SISTEMA/FTP2/traspasoJEVASOeqb-2.sh 1>/dev/null 2>&1
+0 6 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaCARNETmangoshop.sh 1>/dev/null 2>&1
+30 0 * * 0-5 /swmango/scripts/SISTEMA/TRASPASOS_EQD/cogeCImangoshop 1>/dev/null 2>&1
+30 1 * * 6 /swmango/scripts/SISTEMA/TRASPASOS_EQD/cogeCImangoshop 1>/dev/null 2>&1
+0 9 * * * /swmango/scripts/SISTEMA/FTP2/cogeINFOSYSTEMS.sh 1>/dev/null 2>&1
+00,12,24,36,48 * * * * /swmango/scripts/SISTEMA/FTP2/cogeINFOSYSTEMS2.sh 1>/dev/null 2>&1
+01,13,25,37,49 * * * * /swmango/scripts/SISTEMA/FTP2/cogeIVALIS.sh 1>/dev/null 2>&1
+02,14,26,38,50 * * * * /swmango/scripts/SISTEMA/FTP2/cogeRGIS.sh 1>/dev/null 2>&1
+00 07 * * 1-4 /swmango/scripts/SISTEMA/MANGOSHOP/pasaTXTtdvirtual.sh 1>/dev/null 2>&1
+0 3 * * 6 /swmango/scripts/SISTEMA/MANGOSHOP/pasaTXTtdvirtual.sh 1>/dev/null 2>&1
+15 6 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogePLANNINGprodorainet.sh 1>/dev/null 2>&1
+30 06 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogePLANNINGprodorainet2.sh 1>/dev/null 2>&1
+00 8-19 * * 1-5 /swmango/scripts/SISTEMA/FILEMAKER/cogeCOMPRASmacosx.sh 1>/dev/null 2>&1
+45 18 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaPedMejicoprodorainet.sh 1>/dev/null 2>&1
+00 * * * 1-5 /swmango/scripts/SISTEMA/INTRANET/cogePedMejicoprodorainet.sh 1>/dev/null 2>&1
+###00 17 * * 5 /swmango/scripts/SISTEMA/pasaUVIMPORT.sh 1>/dev/null 2>&1
+###00 06-19 * * 0-6 /swmango/scripts/SISTEMA/pasaUV-MACOSX.sh 1>/dev/null 2>&1
+00 01 * * * /swmango/scripts/SISTEMA/BALDUFA/cogeLABELPRICESFMK.sh 1>/dev/null 2>&1
+00,30 * * * * /swmango/scripts/SISTEMA/EDI/pasaEDI-832-810-856.sh >/dev/null 2>&1
+11 * * * * /swmango/scripts/SISTEMA/EDI/cogeEDI-820.sh 1>/dev/null 2>&1
+10 * * * * /swmango/scripts/SISTEMA/EDI/cogeEDI-850.sh 1>/dev/null 2>&1
+#00,30 * * * * /swmango/scripts/SISTEMA/pasaTSVETNOY.sh 1>/dev/null 2>&1
+#15,45 * * * * /swmango/scripts/SISTEMA/cogeTSVETNOY.sh 1>/dev/null 2>&1
+15,45 * * * * /swmango/scripts/SISTEMA/FILEMAKER/cogeDESCRIPLAV.sh 1>/dev/null 2>&1
+03,15,27,39,51 * * * * /swmango/scripts/SISTEMA/FTP2/cogeNOVASTOCK.sh 1>/dev/null 2>&1
+04,16,28,40,52 * * * * /swmango/scripts/SISTEMA/FTP2/cogeOCS.sh 1>/dev/null 2>&1
+05,17,29,41,53 * * * * /swmango/scripts/SISTEMA/FTP2/cogeORRIDGE.sh 1>/dev/null 2>&1
+06,18,30,42,54 * * * * /swmango/scripts/SISTEMA/FTP2/cogeINVSERVICE.sh 1>/dev/null 2>&1
+07,19,31,43,55 * * * * /swmango/scripts/SISTEMA/FTP2/cogeSTOKCHEK.sh 1>/dev/null 2>&1
+00 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaHTM-XML-workflow.sh 1>/dev/null 2>&1
+10 07 * * * /swmango/scripts/SISTEMA/INTRANET/cogeLOGS-UNIFORMESprodorainet.sh 1>/dev/null 2>&1
+04,9,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaREL_FRAPACKwflow.sh >/dev/null 2>&1
+1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaTAOCHI.sh 1>/dev/null 2>&1
+0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeTAOCHI.sh 1>/dev/null 2>&1
+1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogePEDCHI.sh 1>/dev/null 2>&1
+0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaPEDCHI.sh 1>/dev/null 2>&1
+1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaEXP720.sh 1>/dev/null 2>&1
+#10 12 * * 1-5 /swmango/scripts/SISTEMA/pasaDWHCOM_ZENON.sh 1>/dev/null 2>&1
+#00 19 * * 1-5 /swmango/scripts/SISTEMA/pasaDWHCOM_ZENON.sh 1>/dev/null 2>&1
+15 19 * * * /swmango/scripts/SISTEMA/DWH/pasaDWHUSAT.sh 1>/dev/null 2>/dev/null
+00 23 * * 1-5 /swmango/scripts/SISTEMA/DWH/pasaDWH_IMP002.sh 1>/dev/null 2>/dev/null
+# 04,9,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaFAC-SHIPPINGRUS.sh  >/dev/null 2>&1
+00,06,12,18,24,30,36,42,48,54 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaFAC-SHIPPINGRUS.sh  >/dev/null 2>&1
+08,20,32,44,56 * * * * /swmango/scripts/SISTEMA/FTP2/cogeMCSAYIM.sh 1>/dev/null 2>&1
+# 04,9,14,19,24,29,34,39,44,49,54,59 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaORDERprodwfinet.sh 1>/dev/null 2>&1
+01,07,13,19,25,31,37,43,49,55 * * * * /swmango/scripts/SISTEMA/INTRANET/pasaORDERprodwfinet.sh 1>/dev/null 2>&1
+00 01 * * * /swmango/scripts/TDPROD/sas_carga_ctl_mails.sh 1>/dev/null 2>&1
+#####00 04 * * * /swmango/scripts/EXPL/COPIAR.sh 1>/dev/null 2>&1
+7,22,37,52 0-22 * * * /swmango/scripts/SISTEMA/DISTRICENTER/cogeDISTRICENTER.sh 1>/dev/null 2>&1
+02,08,14,20,26,32,38,44,50,56 23 * * * /swmango/scripts/SISTEMA/DISTRICENTER/cogeDISTRICENTER.sh 1>/dev/null 2>&1
+50 07 * * 1-5 /swmango/scripts/TDPROD/adm_concatena_TIEN5381.sh 1>/dev/null 2>&1
+15 07 * * * /swmango/scripts/TDPROD/adm_concatena_TIEN5381D.sh 1>/dev/null 2>&1
+30 07 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/pasaFICHCATINIfilemaker.sh 1>/dev/null 2>&1
+00 07,09,11,13,15,17 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/cogeSOIVRE.sh 1>/dev/null 2>&1
+00 05 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaTRANSIMPprodorainet.sh 1>/dev/null 2>&1
+00 05 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaFICH586prodorainet.sh 1>/dev/null 2>&1
+40 19 * * 1-5 /swmango/scripts/SISTEMA/INTRANET/pasaDEPARTMENTpappinet.sh 1>/dev/null 2>&1
+#0 0,2,4,6,8,10,12,14,16,18,20,22 * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaDEVOSMANGOSHOP.sh 1>/dev/null 2>&1
+01,11,21,31,41,51 * * * * /swmango/scripts/SISTEMA/MANGOSHOP/pasaDEVOSMANGOSHOP.sh 1>/dev/null 2>&1
+0 0,2,4,6,8,10,12,14,16,18,20,22 * * * /swmango/scripts/SISTEMA/MANGOSHOP/cogeDEVOSMANGOSHOP.sh 1>/dev/null 2>&1
+00 10,14,18 * * * /swmango/scripts/SISTEMA/INTRANET/pasaCABDETpappinet.sh 1>/tmp/log_pasacabdet.txt 2>/tmp/log_pasacabdet_err.txt
+30 05 * * * /swmango/scripts/SISTEMA/INTRANET/pasaCABDETpappinet.sh 1>/tmp/log_pasacabdet.txt 2>/tmp/log_pasacabdet_err.txt
+30 04,09,13,17 * * * /swmango/scripts/SISTEMA/INTRANET/cogeINTpappinet.sh 1>/dev/null 2>&1
+30 19 * * 1-5 /swmango/scripts/SISTEMA/SCM/pasaFICH1753.sh >>/tmp/pasaFICH1753.log.`date +\%d` 2>>/tmp/pasaFICH1753.err.`date +\%d`
+15 19 * * 1-5 /swmango/scripts/SISTEMA/SCM/pasaFICH1832.sh 1>/dev/null 2>&1
+0 09,11,13,15,17,19 * * 1-5 /swmango/scripts/SISTEMA/SCM/pasaSEC1775S.sh 1>/tmp/log_pasaSEC1775.txt 2>/tmp/log_err_pasaSEC1775.txt
+0 09,11,13,15,17,19 * * 1-5 /swmango/scripts/SISTEMA/SCM/pasaSEC1801R.sh 1>/tmp/log_pasaSEC1801R.txt 2>/tmp/log_err_pasaSEC1801R.txt
+16,46 * * * 1-5 /swmango/scripts/SISTEMA/SCM/pasaImportDetails.sh 1>/dev/null 2>&1
+0 10,16 * * 1-5 /swmango/scripts/SISTEMA/SCM/cogeNewBankInformation.sh 1>/dev/null 2>&1
+00 7-19 * * 1-5 /swmango/scripts/SISTEMA/SCM/cogeInvoices.sh 1>/dev/null 2>&1
+00 7-19 * * 1-5 /swmango/scripts/SISTEMA/SCM/cogeCOs.sh 1>/dev/null 2>&1
+00 12,19 * * * /swmango/scripts/SISTEMA/SCM/cogeM2PPESVOL-SCM.sh expl 1>>/tmp/cogeM2PPESVOL-SCM.sh.log.`date +\%d\%m\%y` 2>>/tmp/cogeM2PPESVOL-SCM.sh.err.`date +\%d\%m\%y`
+5,20,35,50 7-19 * * 1-5 /swmango/scripts/SISTEMA/SCM/cogeODs.sh 1>/dev/null 2>&1
+03,09,15,21,27,33,39,45,51,57 9-18 * * 1-5 /swmango/scripts/SISTEMA/WEBLOGIC/pasaRED.sh 1>/dev/null 2>/dev/null 
+0 7-19 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogePROFORMS.sh 1>/dev/null 2>/dev/null
+0 7-19 * * 1-5 /swmango/scripts/SISTEMA/WEBLOGIC/cogeINVOICES.sh 1>/dev/null 2>/dev/null
+30 06 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogeREF_SYMBOLS.sh 1>/dev/null 2>/dev/null
+31 06 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogeRULES_MASTER.sh 1>/dev/null 2>/dev/null
+32 06 * * * /swmango/scripts/SISTEMA/WEBLOGIC/cogeREF_RULES.sh 1>/dev/null 2>/dev/null
+15 02 * * * /swmango/scripts/SISTEMA/FTP2/pasaCRM.ksh 1>/dev/null 2>/dev/null
+00 03 * * 1-5 /swmango/scripts/SISTEMA/WEBLOGIC/cogeFACTORIES.sh 1>/dev/null 2>&1
+45 18 * * 1-4 /swmango/scripts/SISTEMA/SCM/cogeM1BACK.sh 1>>/tmp/cogeM1BACK.log.`date +\%d\%m\%y` 2>> /tmp/cogeM1BACK.err.`date +\%d\%m\%y`
+00 16 * * 5 /swmango/scripts/SISTEMA/SCM/cogeM1BACK.sh 1>>/tmp/cogeM1BACK.log.`date +\%d\%m\%y` 2>> /tmp/cogeM1BACK.err.`date +\%d\%m\%y`
+05 03 * * 2-6 /swmango/scripts/SISTEMA/SCM/cogeFECHAS_IDEALES.sh 1>/dev/null 2>&1
+05,11,17,23,29,35,41,47,53,59 02-19 * * * /swmango/scripts/SISTEMA/SCM/cogeM2P.sh 1>>/tmp/cogeM2P.sh.log.`date +\%d\%m\%y` 2>>/tmp/cogeM2P.sh.err.`date +\%d\%m\%y`
+05,11,17,23,29,35,41,47,53,59 02-19 * * * /swmango/scripts/SISTEMA/SCM/cogeM2P_SAP.sh 1>>/tmp/cogeM2P_SAP.sh.log.`date +\%d\%m\%y` 2>>/tmp/cogeM2P_SAP.sh.err.`date +\%d\%m\%y`
+00 19 * * * /swmango/scripts/SISTEMA/SCM/cogeM2PGDE-SCM.sh expl 1>>/tmp/cogeM2PGDE-SCM.sh.log.`date +\%d\%m\%y` 2>>/tmp/cogeM2PGDE-SCM.sh.sh.err.`date +\%d\%m\%y`
+03,09,15,21,27,33,39,45,51,57 4-19 * * 1-5 /swmango/scripts/SISTEMA/SCM/cogeM3F expl 1>>/tmp/cogeM3F.log.`date +\%d\%m\%y` 2>>/tmp/cogeM3Fexpl.err.`date +\%d\%m\%y`
+30 0-19 * * 1-6 /swmango/scripts/SISTEMA/SCM/cogeM5 expl 1>> /tmp/cogeM5expl.log.`date +\%d\%m\%y` 2>>/tmp/cogeM5expl.err.`date +\%d\%m\%y`
+30 4 * * 4 /swmango/scripts/SISTEMA/SCM/cogePREVSCM.sh 1>/dev/null 2>&1
+05,11,17,23,29,35,41,47,53,59 6-19 * * * /swmango/scripts/SISTEMA/SCM/cogeSCM expl >>/MNG/EXPL/NT2MNG/LOGS/cogeSCMexpl.log.`date +\%d\%m\%y` 2>>/MNG/EXPL/NT2MNG/LOGS/cogeSCMexpl.err.`date +\%d\%m\%y`
+0 7 * * 1-6 /swmango/scripts/SISTEMA/SCM/pasaCustomers expl 1>>/tmp/pasaCustomersexpl.log.`date +\%d\%m\%y` 2>>/tmp/pasaCustomersexpl.err.`date +\%d\%m\%y`
+08,38 7-19 * * * /swmango/scripts/SISTEMA/SCM/pasaComponentes expl 1>>/MNG/EXPL/NT2MNG/LOGS/pasaComponentes.log.`date +\%d\%m\%y` 2>>/MNG/EXPL/NT2MNG/LOGS/pasaComponentes.err.`date +\%d\%m\%y`
+03,15,27,39,51 7-19 * * * /swmango/scripts/SISTEMA/SCM/cogeSCM-COMP expl >>/MNG/EXPL/NT2MNG/LOGS/cogeSCM-COMPexpl.log.`date +\%d\%m\%y` 2>>/MNG/EXPL/NT2MNG/LOGS/cogeSCM-COMPexpl.err.`date +\%d\%m\%y`
+00,06,12,18,24,30,36,42,48,54 09-19 * * 1-5 /swmango/scripts/SISTEMA/SCM/cogeSCM-FACTURAS.sh expl >>/tmp/cogeSCM-FACTURAS.log.`date +\%d\%m\%y` 2>&1
+0 18 * * * /swmango/scripts/SISTEMA/SCM/cogeSCM-GTI.sh >>/tmp/cogeSCM-GTI.log.`date +\%d\%m\%y` 2>&1 
+0 16 * * 5 /swmango/scripts/SISTEMA/SCM/cogeSCM-GTI.sh >>/tmp/cogeSCM-GTI.log.`date +\%d\%m\%y` 2>&1
+01,07,13,19,25,31,37,43,49,55 6-19 * * 1-5 /swmango/scripts/SISTEMA/SCM/cogeSCM-IMP.sh 1>/dev/null 2>/dev/null
+02,32 * * * * /swmango/scripts/SISTEMA/SCM/cogeSCM-MLW-1.sh expl 1>/dev/null 2>&1
+03,33 * * * * /swmango/scripts/SISTEMA/SCM/cogeSCM-MLW-2.sh expl 1>/dev/null 2>&1
+33 23 * * * /swmango/scripts/SISTEMA/SCM/cogeSCM09.sh 1>/dev/null 2>&1
+00 2,6 * * 2-6 /swmango/scripts/SISTEMA/SCM/cogeUBICACION_FECHAS_IDEALES.sh 1>/dev/null 2>&1
+00 06 * * 1-6 /swmango/scripts/SISTEMA/SCM/coge_PREVENTRADA.sh 1>>/tmp/coge_PREVENTRADA.sh.log.`date +\%d\%m\%y` 2>>/tmp/coge_PREVENTRADA.sh.err.`date +\%d\%m\%y`
+01,06,11,16,21,26,31,36,41,46,51,56 1-19 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaPRTPRE.sh 1>/tmp/pasaPRTPRE.log.`date +\%d` 2>/tmp/pasaPRTPPRE.err.`date +\%d`
+02,07,12,17,22,27,32,37,42,47,52,57 23-0 * * * /swmango/scripts/SISTEMA/BALDUFA/pasaPRTPRE.sh 1>/tmp/pasaPRTPRE.log.`date +\%d` 2>/tmp/pasaPRTPPRE.err.`date +\%d`
+
+
+##########################
+#### Traspasos LECTRA ####
+##########################
+
+0 09,14 * * 1-5 /swmango/scripts/SISTEMA/BALDUFA/cogeLECTRA-4.sh 1>/dev/null 2>&1
+
+######################
+#### Procesos DWH ####
+######################
+
+# se pasa a root por usar la sentencia "su - td" 03/10/2014
+#0 20 * * 0,6 /swmango/scripts/EXPL/exe_DWH_EQB2_STK02_ZENON 1>/dev/null 2>&1
+#0 20 * * 1 /swmango/scripts/EXPL/exe_DWH_EQGA_ZENON 1>/dev/null 2>&1
+#0 20 * * 1 /swmango/scripts/EXPL/exe_DWH_EQGB_ZENON 1>/dev/null 2>&1
+
+###########################
+#### Traspasos CENTRIC ####
+###########################
+
+17,47 7-19 * * * /swmango/scripts/SISTEMA/CENTRIC/traspasaCENTRIC1.sh 1>/dev/null 2>&1
+20 7,8,9,10,11,12,13,14,15,16,17,18,19 * * * /swmango/scripts/SISTEMA/CENTRIC/traspasaCENTRIC2.sh 1>/dev/null 2>&1
+#30 7-19 * * * /swmango/scripts/SISTEMA/CENTRIC/traspasaCENTRIC3.sh 1>/dev/null 2>&1
+45 23 * * * /swmango/scripts/SISTEMA/CENTRIC/traspasaCENTRIC4.sh 1>/dev/null 2>&1
+#00,30 * * * * /swmango/scripts/SISTEMA/CENTRIC/traspasaCENTRIC5.sh 1>/dev/null 2>&1
+00 23,01 * * * /swmango/scripts/SISTEMA/CENTRIC/traspasaCENTRIC6.sh 1>/dev/null 2>&1
+00,30 * * * * /swmango/scripts/SISTEMA/CENTRIC/traspasaCENTRIC7.sh 1>/dev/null 2>&1
+
+##########################
+####         EQG-DP   ####
+##########################
+
+2 7 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONTTC EQDGP
+#10 07-19 * * 1-5 /swmango/scripts/EXPL/exe_PROGCOB CONT0391 EQDGP
+
+
+#############
+###  TST  ###
+#############
+
+00 06 * * 1 /swmango/scripts/EXPL/exe_PROGCOB TST_004 TST  1>/dev/null 2>&1
+
+03,08,12,27,22,27,32,37,42,47,52,57 * * * * /swmango/scripts/SISTEMA/FOCUS/zipFOCUS.sh 1>/dev/null 2>&1
